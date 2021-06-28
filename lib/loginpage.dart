@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:msf/main.dart';
+import 'package:msf/signup.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFFEFEFA),
+        backgroundColor: Color(0xFFFAFAFA),
         appBar: AppBar(
             //title: Text(widget.title),
             title: Row(
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               width: 30,
             ),
-            Text('MSF'),
+            Text('LOGIN'),
           ],
         )),
         body: SingleChildScrollView(
@@ -66,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('LogIn'),
               ),
               const SizedBox(
-                height: 12,
+                height: 16,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                   Text('Do not have an Account?'),
                   TextButton(
                       onPressed:(){
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return SignUp();
+                            })
+                        );
                   },
                     child: Text('SignUp'),
                   )
