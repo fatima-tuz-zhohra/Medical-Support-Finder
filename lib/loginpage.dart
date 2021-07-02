@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:msf/home/homepage.dart';
 import 'package:msf/main.dart';
 import 'package:msf/signup.dart';
 
@@ -63,7 +64,14 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(12.0),
                   textStyle: const TextStyle(fontSize: 20),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return HomePage();
+                      })
+                  );
+                },
                 child: const Text('LogIn'),
               ),
               const SizedBox(
