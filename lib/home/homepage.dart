@@ -1,101 +1,104 @@
-import 'dart:math';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:msf/main.dart';
+import 'package:flutter/rendering.dart';
 
-class HomePage extends StatelessWidget {
+import 'medicine.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    final title = 'Home';
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          leading: Icon(Icons.settings),
-        ),
-        body:
-        Padding(padding: EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              Text('gbb'),
-              const
-              SizedBox(height: 12),
-              Expanded(
-                child: GridView.builder(
-                  itemCount: 6,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).orientation ==
-                        Orientation.landscape
-                        ? 3
-                        : 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: (2 / 1),
-                  ),
-                  itemBuilder: (
-                      context,
-                      index,
-                      ) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                              return MyHomePage(title: 'dfgdfg');
-                            }));
-                      },
-                      child: Container(
-                        color: RandomColorModel().getColor(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.add_a_photo),
-                            Text('home',
-                                style:
-                                TextStyle(fontSize: 18, color: Colors.black),
-                                textAlign: TextAlign.center),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-        )
-
-
-        /*GridView.count(crossAxisCount: 2,
-     children: List.generate(6,(index){
-       return Container(
-         color: Colors.blueGrey,
-         child: Center(
-             child:Column(
-                 children:[
-                     Icon(
-                       Icons.add_a_photo_outlined,
-                       size: 24,
-                       color: Colors.black87,
-                     ),
-                     Text(
-                       'Item $index',
-                       style: Theme.of(context).textTheme.headline5,
-                     ),
-                 ]
-             )
-         )
-       );
-
-     }
-     ),),*/
-        );
-  }
+  _HomePageState createState() => _HomePageState();
 }
 
-class RandomColorModel {
-  Random random = Random();
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff26496a),
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Text(
+                'Here Is Everything',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                  fontFamily: 'Poppins'
+                ),
+              ),
+            ),
+              Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    child: GridView(
+                      padding: EdgeInsets.zero,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 2,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        _buildGridItem(context, 'title',Icon(Icons.medical_services)),
+                        _buildGridItem(context, 'title2',Icon(Icons.local_hospital_rounded)),
+                        _buildGridItem(context, 'title3',Icon(Icons.bloodtype_rounded)),
+                        _buildGridItem(context, 'title4',Icon(Icons.lock_clock)),
+                        _buildGridItem(context, 'title5',Icon(Icons.local_hospital_rounded)),
+                      ],
+                    ),
+                  ),
+              )
 
-  Color getColor() {
-    return Color.fromARGB(random.nextInt(300), random.nextInt(300),
-        random.nextInt(300), random.nextInt(300));
+          ],
+        ),
+      ),
+
+    );
   }
+
+  Widget _buildGridItem(BuildContext context, String title, Widget icon){
+    return InkWell(
+      onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return Medicine();
+      }));
+    },
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          color: Color(0xFF8A583434),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: icon,
+            ),
+            Text(title,
+              style: TextStyle(
+                  fontFamily: 'Italy'
+              ),)
+          ],
+        ),
+      ),
+    );
+  }
+
 }
