@@ -97,14 +97,28 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(
                 height: 12,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12.0),
-                  textStyle: const TextStyle(fontSize: 20),
+              Container(
+                height: 50,
+                width: 324,
+                child: MaterialButton(
+                color: Colors.lightGreen,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }));
+                },
+                child: const Text('SignUp',
+                  style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
-                child: const Text('SignUp'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(
+                        color: Colors.green
+                    )
+                ),
               ),
+              ),
+
               const SizedBox(
                 height: 12,
               ),

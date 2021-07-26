@@ -19,14 +19,6 @@ class _LoginPageState extends State<LoginPage> {
             //title: Text(widget.title),
             title: Row(
           children: [
-            Icon(
-              Icons.star,
-              color: Colors.black,
-              size: 20.0,
-            ),
-            const SizedBox(
-              width: 30,
-            ),
             Text('LOGIN'),
           ],
         )),
@@ -76,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(10),
               child: Container(
                 height: 50,
-                width: 300,
+                width: 324,
                 child: MaterialButton(
                   color: Colors.green,
                   onPressed: () {
@@ -104,25 +96,31 @@ class _LoginPageState extends State<LoginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(12.0),
-                    //textStyle: const TextStyle(fontSize: 20),
+                Container(
+                  height: 50,
+                  width: 150,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(12.0),
+                      primary: Colors.lightGreen,
+                      onPrimary: Colors.white70,
+                    ),
+                    onPressed: () {},
+                    child: const Text('Google'),
                   ),
-                  onPressed: () {},
-                  child: const Text('Google'),
                 ),
-                const SizedBox(
-                  width: 30,
-                ),
+                const SizedBox(width:12),
+                Container(
+                  height: 50,
+                  width: 150,
+                  child:
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(12.0),
-                    //textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {},
                   child: const Text('Facebook'),
-                ),
+                ),)
               ],
             ),
             Row(
