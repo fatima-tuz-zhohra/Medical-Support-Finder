@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.from(colorScheme: ColorScheme.light(
+        primary: Color(0xffff8a65),
+      )),
       home: MyHomePage(title: 'Medical Support Finder'),
     );
   }

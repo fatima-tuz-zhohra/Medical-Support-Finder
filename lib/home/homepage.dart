@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff26496a),
+        backgroundColor: Color(0xffff8a65),
       ),
 
       body: SafeArea(
