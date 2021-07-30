@@ -56,43 +56,28 @@ class _HomePageState extends State<HomePage> {
                     _buildGridItem(
                         context,
                         'Medicine',
-                        Image.asset(
                           'assets/images/medicine.png',
-                          height: 48,
-                          width: 48,
-                        )),
+                          ),
                     _buildGridItem(
                         context,
                         'Hospital',
-                        Image.asset(
                           'assets/images/hospital2.png',
-                          height: 48,
-                          width: 48,
-                        )),
+                    ),
                     _buildGridItem(
                         context,
                         'Doctor',
-                        Image.asset(
                           'assets/images/heart_shape.png',
-                          height: 48,
-                          width: 48,
-                        )),
+                         ),
                     _buildGridItem(
                         context,
                         'Blood',
-                        Image.asset(
                           'assets/images/blood1.png',
-                          height: 48,
-                          width: 48,
-                        )),
+                         ),
                     _buildGridItem(
                         context,
                         'Oxygen',
-                        Image.asset(
                           'assets/images/oxygen.png',
-                          height: 48,
-                          width: 48,
-                        )),
+                          ),
                   ],
                 ),
               ),
@@ -105,7 +90,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildGridItem(BuildContext context, String title, Widget image) {
+  Widget _buildGridItem(BuildContext context, String title, String image) {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -124,14 +109,10 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: image,
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.white70,
+              backgroundImage: AssetImage(image),
             ),
             const SizedBox(height: 4),
             Text(
