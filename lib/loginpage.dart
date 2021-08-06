@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:msf/home/homepage.dart';
 import 'package:msf/main.dart';
 import 'package:msf/signup.dart';
@@ -11,6 +12,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final snackBar = SnackBar(content: Text('Error!'));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  controller: emailController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         filled: true,
@@ -53,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                         child: TextFormField(
+                          controller: passwordController,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.lock),
                                 filled: true,
@@ -72,9 +79,23 @@ class _LoginPageState extends State<LoginPage> {
                 child: MaterialButton(
                   color: Colors.green,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return HomePage();
-                    }));
+                    String email = emailController.text;
+                    String pass = passwordController.text;
+
+                    print("$email");
+                    print("$pass");
+
+                    if(
+                    emailController.text == "" || passwordController.text == ""
+                    ){
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    else
+                      {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return HomePage();
+                        }));
+                      }
                   },
                   child: const Text('LogIn',
                   style: TextStyle(color: Colors.white),
@@ -142,3 +163,7 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 }
+
+/*
+
+ */
