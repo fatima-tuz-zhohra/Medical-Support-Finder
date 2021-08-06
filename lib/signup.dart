@@ -12,6 +12,13 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool? value = false;
 
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phonenoController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final snackBar = SnackBar(content: Text('Error!'));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +38,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.account_circle),
                         filled: true,
@@ -44,6 +52,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         filled: true,
@@ -57,6 +66,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextField(
+                    controller: phonenoController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.phone),
                         filled: true,
@@ -70,6 +80,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),
                         filled: true,
@@ -101,24 +112,38 @@ class _SignUpState extends State<SignUp> {
                 height: 50,
                 width: 324,
                 child: MaterialButton(
-                color: Colors.lightGreen,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return LoginPage();
-                  }));
-                },
-                child: const Text('SignUp',
-                  style: TextStyle(color: Colors.white),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(
-                        color: Colors.green
-                    )
-                ),
-              ),
-              ),
+                  color: Colors.lightGreen,
+                  onPressed: () {
+                    String name = nameController.text;
+                    String email = emailController.text;
+                    String phoneno = phonenoController.text;
+                    String pass = passwordController.text;
 
+                    if (nameController.text == "" ||
+                        emailController.text == "" ||
+                        phonenoController.text == "" ||
+                        passwordController.text == "") {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LoginPage();
+                          },
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'SignUp',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.green)),
+                ),
+              ),
               const SizedBox(
                 height: 12,
               ),
