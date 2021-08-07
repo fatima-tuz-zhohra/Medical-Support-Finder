@@ -21,14 +21,13 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
         appBar: AppBar(
-          backgroundColor: Color(0xFFFAFAFA),
-          leading: Icon(Icons.arrow_back, color: Colors.blue),
+          centerTitle: true,
           title: Text(
             'SIGNUP',
-            style: TextStyle(color: Colors.deepOrange),
           ),
         ),
         body: SingleChildScrollView(
@@ -112,7 +111,7 @@ class _SignUpState extends State<SignUp> {
                 height: 50,
                 width: 324,
                 child: MaterialButton(
-                  color: Colors.lightGreen,
+                  color:  theme.colorScheme.primary,
                   onPressed: () {
                     String name = nameController.text;
                     String email = emailController.text;
@@ -141,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.green)),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -151,7 +150,7 @@ class _SignUpState extends State<SignUp> {
                 Text('Already have an Account?'),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context,
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) {
                       return LoginPage();
                     }));

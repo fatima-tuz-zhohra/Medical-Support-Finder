@@ -9,12 +9,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final List<String> entries = [
-    'name',
-    'mobile no',
-    'email',
-    'password'
-  ];
+  final List<String> entries = ['name', 'mobile no', 'email', 'password'];
   final List<String> userentries = [
     'ftz',
     '01408-485584',
@@ -30,6 +25,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -43,8 +40,8 @@ class _ProfileState extends State<Profile> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Colors.orange,
-                      Colors.redAccent,
+                      theme.colorScheme.primary,
+                      theme.colorScheme.secondary,
                     ]),
               ),
               child: Column(
@@ -59,23 +56,21 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: entries.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    child: ListTile(
-                      leading: Icon(icon[index]),
+                  padding: const EdgeInsets.all(8),
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      child: ListTile(
+                        leading: Icon(icon[index]),
                         title: Text('${entries[index]}'),
                         subtitle: Text('${userentries[index]}'),
                       ),
-                  );
-
-                }
-              ),
+                    );
+                  }),
             )
           ],
         ),

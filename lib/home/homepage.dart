@@ -17,10 +17,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffff8a65),
-      ),
-
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -102,7 +98,7 @@ class _HomePageState extends State<HomePage> {
         height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xffffab91
+          color: Color(0xff80cbc4
           ),
         ),
         child: Column(

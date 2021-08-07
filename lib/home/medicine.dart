@@ -16,10 +16,10 @@ class _MedicineState extends State<Medicine> {
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(50.0),
-            topRight: Radius.circular(50.0),
+            bottomRight: Radius.circular(50.0),
           )
         ) ,
-        backgroundColor: Color(0xffff8a65),
+          centerTitle: true,
         title: Text('Medicine'),
       ),
       body: SafeArea(

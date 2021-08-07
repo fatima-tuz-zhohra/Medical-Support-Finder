@@ -18,15 +18,13 @@ class _LoginPageState extends State<LoginPage> {
   final snackBar = SnackBar(content: Text('Error!'));
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
         appBar: AppBar(
-            //title: Text(widget.title),
-            title: Row(
-          children: [
-            Text('LOGIN'),
-          ],
-        )),
+            centerTitle: true,
+            title: Text('LOGIN'),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
               child:
@@ -77,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50,
                 width: 324,
                 child: MaterialButton(
-                  color: Colors.green,
+                  color:  theme.colorScheme.primary,
                   onPressed: () {
                     String email = emailController.text;
                     String pass = passwordController.text;
@@ -102,9 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(
-                      color: Colors.green
-                    )
                   ),
                 ),
               ),
@@ -123,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(12.0),
-                      primary: Colors.lightGreen,
+                      primary:   theme.colorScheme.primary,
                       onPrimary: Colors.white70,
                     ),
                     onPressed: () {},
@@ -150,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text('Do not have an Account?'),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context,
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) {
                       return SignUp();
                     }));
