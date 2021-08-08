@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:msf/loginpage.dart';
+import 'package:msf/authentication/login/loginpage.dart';
 
 class SignUp extends StatefulWidget {
   @override

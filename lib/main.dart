@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:msf/splash.dart';
+import 'package:msf/authentication/splash/splash.dart';
 
 void main() {
   runApp(MyApp());

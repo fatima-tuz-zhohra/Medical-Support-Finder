@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:msf/settings/profile.dart';
+import 'package:msf/home/settings/profile.dart';
+import 'package:msf/home/settings/setting.dart';
 
 class HomepageNavigator extends StatefulWidget {
   const HomepageNavigator({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class _HomepageNavigatorState extends State<HomepageNavigator> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+        currentIndex: 1,
       onTap: (index) {
         if(index == 0){
           Navigator.push(
@@ -23,6 +25,12 @@ class _HomepageNavigatorState extends State<HomepageNavigator> {
         }else if(index == 1){
 
         }else if(index == 2){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return SettingScreen();
+              })
+          );
 
         }
       },

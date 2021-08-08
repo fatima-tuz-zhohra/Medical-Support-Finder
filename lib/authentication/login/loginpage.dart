@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:msf/home/homepage.dart';
 import 'package:msf/main.dart';
-import 'package:msf/signup.dart';
+import 'package:msf/authentication/signup/signup.dart';
 
 class LoginPage extends StatefulWidget {
   @override
