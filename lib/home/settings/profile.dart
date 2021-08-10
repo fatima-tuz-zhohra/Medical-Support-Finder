@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
     'ftzelma@gmail.com',
     'ftzelma'
   ];
-  List<IconData> icon = [
+ List<IconData> icon = [
     Icons.account_circle,
     Icons.phone,
     Icons.email,

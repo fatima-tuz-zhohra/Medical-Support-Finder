@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:msf/home/category/medicine/medicine.dart';
+import 'package:msf/home/category/blood/blood_main_screen.dart';
+import 'package:msf/home/category/doctor/doctor_main_screen.dart';
+import 'package:msf/home/category/hospital/hospital_main_screen.dart';
+import 'package:msf/home/category/medicine/medicine_main_screen.dart';
+import 'package:msf/home/category/oxygen/oxygen_main_screen.dart';
 import 'package:msf/home/homepage_navigator.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,17 +24,18 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child:
-              Text(
+              child: Text(
                 'Here Is Everything',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontFamily: 'Poppins',
-                fontSize: 20),
+                    fontSize: 20),
               ),
             ),
             Expanded(
@@ -50,30 +52,60 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.vertical,
                   children: [
                     _buildGridItem(
-                        context,
-                        'Medicine',
-                          'assets/images/medicine.png',
-                          ),
-                    _buildGridItem(
-                        context,
-                        'Hospital',
-                          'assets/images/hospital2.png',
+                      context,
+                      'Medicine',
+                      'assets/images/medicine.png',
+                      () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return MedicineMainScreen();
+                        }));
+                      },
                     ),
                     _buildGridItem(
-                        context,
-                        'Doctor',
-                          'assets/images/heart_shape.png',
-                         ),
+                      context,
+                      'Hospital',
+                      'assets/images/hospital2.png',
+                      () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HospitalMainScreen();
+                        }));
+                      },
+                    ),
                     _buildGridItem(
-                        context,
-                        'Blood',
-                          'assets/images/blood1.png',
-                         ),
+                      context,
+                      'Doctor',
+                      'assets/images/heart_shape.png',
+                      () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return DoctorMainScreen();
+                        }));
+                      },
+                    ),
                     _buildGridItem(
-                        context,
-                        'Oxygen',
-                          'assets/images/oxygen.png',
-                          ),
+                      context,
+                      'Blood',
+                      'assets/images/blood1.png',
+                      () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return BloodMainScreen();
+                        }));
+                      },
+                    ),
+                    _buildGridItem(
+                      context,
+                      'Oxygen',
+                      'assets/images/oxygen.png',
+                      () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return OxygenMainScreen();
+                        }));
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -81,25 +113,20 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-
       bottomNavigationBar: HomepageNavigator(),
     );
   }
 
-  Widget _buildGridItem(BuildContext context, String title, String image) {
+  Widget _buildGridItem(
+      BuildContext context, String title, String image, Function() onTap) {
     return InkWell(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Medicine();
-        }));
-      },
+      onTap: onTap,
       child: Container(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xff80cbc4
-          ),
+          color: Color(0xff80cbc4),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -113,7 +140,8 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 4),
             Text(
               title,
-              style: TextStyle(fontFamily: 'Italy',
+              style: TextStyle(
+                fontFamily: 'Italy',
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
                 fontSize: 16,
@@ -125,4 +153,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

@@ -13,25 +13,19 @@ class _HomepageNavigatorState extends State<HomepageNavigator> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        currentIndex: 1,
+      currentIndex: 1,
       onTap: (index) {
-        if(index == 0){
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return Profile();
-              })
-          );
-        }else if(index == 1){
-
-        }else if(index == 2){
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return SettingScreen();
-              })
-          );
-
+        if (index == 0) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Profile();
+          }));
+        } else if (index == 1) {
+        } else if (index == 2) {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return SettingScreen();
+            },
+          ));
         }
       },
       items: const <BottomNavigationBarItem>[
