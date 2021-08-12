@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/data/mock_medicine_list.dart';
 import 'package:msf/data/model/medicine_item.dart';
+import 'package:msf/home/category/medicine/medicine_details.dart';
 
 class MedicineMainScreen extends StatefulWidget {
   const MedicineMainScreen({Key? key}) : super(key: key);
@@ -17,22 +18,28 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(50.0),
-          bottomRight: Radius.circular(50.0),
+          bottomLeft: Radius.circular(30.0),
+          bottomRight: Radius.circular(30.0),
         )),
         centerTitle: true,
         title: Text('Medicine'),
       ),
       body: SafeArea(
         child: ListView.builder(
-          itemCount: entries.length,
+          itemCount: medicineEntries.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
               child: ListTile(
                 leading: CircleAvatar(),
-                title: Text('${entries[index].name}'),
-                subtitle: Text('${entries[index].generic}'),
-                trailing: Text('${entries[index].price}'),
+                title: Text('${medicineEntries[index].name}'),
+                subtitle: Text('${medicineEntries[index].generic}'),
+                trailing: Text('${medicineEntries[index].price}'),
+                onTap: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                        return MedicineDetails(medicineEntries[index]);
+                      }));
+                },
               ),
             );
           },

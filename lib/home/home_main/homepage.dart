@@ -5,7 +5,8 @@ import 'package:msf/home/category/doctor/doctor_main_screen.dart';
 import 'package:msf/home/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/category/medicine/medicine_main_screen.dart';
 import 'package:msf/home/category/oxygen/oxygen_main_screen.dart';
-import 'package:msf/home/homepage_navigator.dart';
+import 'package:msf/home/home_main/homepage_navigator.dart';
+import 'package:msf/widgets/grid_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -51,55 +52,50 @@ class _HomePageState extends State<HomePage> {
                   ),
                   scrollDirection: Axis.vertical,
                   children: [
-                    _buildGridItem(
-                      context,
-                      'Medicine',
-                      'assets/images/medicine.png',
-                      () {
+                    GridItemView(
+                      title: 'Medicine',
+                      image: 'assets/images/medicine.png',
+                      onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return MedicineMainScreen();
                         }));
                       },
                     ),
-                    _buildGridItem(
-                      context,
-                      'Hospital',
-                      'assets/images/hospital2.png',
-                      () {
+                    GridItemView(
+                      title: 'Hospital',
+                      image: 'assets/images/hospital2.png',
+                      onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return HospitalMainScreen();
                         }));
                       },
                     ),
-                    _buildGridItem(
-                      context,
-                      'Doctor',
-                      'assets/images/heart_shape.png',
-                      () {
+                    GridItemView(
+                      title:'Doctor',
+                      image: 'assets/images/heart_shape.png',
+                      onTap:  () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return DoctorMainScreen();
                         }));
                       },
                     ),
-                    _buildGridItem(
-                      context,
-                      'Blood',
-                      'assets/images/blood1.png',
-                      () {
+                    GridItemView(
+                      title:'Blood',
+                      image: 'assets/images/blood1.png',
+                      onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return BloodMainScreen();
                         }));
                       },
                     ),
-                    _buildGridItem(
-                      context,
-                      'Oxygen',
-                      'assets/images/oxygen.png',
-                      () {
+                    GridItemView(
+                      title: 'Oxygen',
+                      image: 'assets/images/oxygen.png',
+                      onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return OxygenMainScreen();
@@ -114,42 +110,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: HomepageNavigator(),
-    );
-  }
-
-  Widget _buildGridItem(
-      BuildContext context, String title, String image, Function() onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xff80cbc4),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.white70,
-              backgroundImage: AssetImage(image),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Italy',
-                fontWeight: FontWeight.bold,
-                color: Colors.black54,
-                fontSize: 16,
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

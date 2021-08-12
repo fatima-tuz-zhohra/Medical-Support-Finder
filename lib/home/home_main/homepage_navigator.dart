@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:msf/home/settings/profile.dart';
-import 'package:msf/home/settings/setting.dart';
+import 'package:msf/home/home_main/settings/profile.dart';
+import 'package:msf/home/home_main/settings/setting.dart';
 
 class HomepageNavigator extends StatefulWidget {
   const HomepageNavigator({Key? key}) : super(key: key);

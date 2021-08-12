@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:msf/data/mock_hospital_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HospitalMainScreen extends StatefulWidget {
   const HospitalMainScreen({Key? key}) : super(key: key);
@@ -16,14 +18,32 @@ class _HospitalMainScreenState extends State<HospitalMainScreen> {
         title: Text('Hospital'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Hospital Screen"),
-              ],
-            )),
+        child: ListView.builder(
+          itemCount: hospitalEntries.length,
+            itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                title: Text('${hospitalEntries[index].name}'),
+                subtitle: Text('${hospitalEntries[index].location}'),
+                onTap: (){
+                    navigateTo(hospitalEntries[index].latitude, hospitalEntries[index].longitude);
+                },
+
+              ),
+            );
+            },
+        )
       ),
     );
+  }
+
+   void navigateTo(double lat, double lng) async {
+    //var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
   }
 }
