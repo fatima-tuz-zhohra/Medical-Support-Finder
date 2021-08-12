@@ -1,6 +1,6 @@
 import 'package:msf/data/model/item/bloodBank_item.dart';
 
-final List<BloodBankItem> BloodBankEntries = [
+final List<BloodBankItem> bloodBankEntries = [
   BloodBankItem(
       001,
       'Quantum Blood Bank Lab',

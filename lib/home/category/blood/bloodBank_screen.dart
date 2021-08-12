@@ -27,12 +27,12 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
           
           Expanded(
             child: ListView.builder(
-              itemCount: BloodBankEntries.length,
+              itemCount: bloodBankEntries.length,
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    title: Text('${BloodBankEntries[index].name}'),
-                    subtitle: Text('${BloodBankEntries[index].address}'),
+                    title: Text('${bloodBankEntries[index].name}'),
+                    subtitle: Text('${bloodBankEntries[index].address}'),
                     trailing:
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -43,7 +43,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
                           icon: const Icon(Icons.location_on),
                           color: theme.colorScheme.secondary,
                           onPressed:() {
-                            navigateTo(BloodBankEntries[index].latitude, BloodBankEntries[index].longitude);
+                            navigateTo(bloodBankEntries[index].latitude, bloodBankEntries[index].longitude);
                           },
                         ),
                         IconButton(
@@ -51,7 +51,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
                           icon: const Icon(Icons.call),
                           color: theme.colorScheme.secondary,
                           onPressed:() {
-                            launch(('tel://${BloodBankEntries[index].phoneNo}'));
+                            launch(('tel://${bloodBankEntries[index].phoneNo}'));
                           },
                         )
                       ],

@@ -12,6 +12,7 @@ class HospitalMainScreen extends StatefulWidget {
 class _HospitalMainScreenState extends State<HospitalMainScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -25,9 +26,14 @@ class _HospitalMainScreenState extends State<HospitalMainScreen> {
               child: ListTile(
                 title: Text('${hospitalEntries[index].name}'),
                 subtitle: Text('${hospitalEntries[index].location}'),
-                onTap: (){
+                trailing:  IconButton(
+                  iconSize: 18,
+                  icon: const Icon(Icons.location_on),
+                  color: theme.colorScheme.secondary,
+                  onPressed:() {
                     navigateTo(hospitalEntries[index].latitude, hospitalEntries[index].longitude);
-                },
+                  },
+                ),
 
               ),
             );

@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:msf/data/model/list/mock_medicine_list.dart';
 import 'package:msf/data/model/item/medicine_item.dart';
 import 'package:msf/home/category/medicine/medicine_details.dart';
+import 'package:msf/widgets/search_view.dart';
 
 class MedicineMainScreen extends StatefulWidget {
   const MedicineMainScreen({Key? key}) : super(key: key);
@@ -16,35 +17,40 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(30.0),
-          bottomRight: Radius.circular(30.0),
-        )),
         centerTitle: true,
         title: Text('Medicine'),
       ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: medicineEntries.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: ListTile(
-                leading: CircleAvatar(),
-                title: Text('${medicineEntries[index].name}'),
-                subtitle: Text('${medicineEntries[index].generic}'),
-                trailing: Text('${medicineEntries[index].price}'),
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) {
-                        return MedicineDetails(medicineEntries[index]);
-                      }));
+      body:  Column(
+        children: [
+          SearchView(onTextChange: (String ) { },
+          ),
+
+          Expanded(
+            child: ListView.builder(
+                itemCount: medicineEntries.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.white,
+                          child: Icon(Icons.medical_services),
+                      ),
+                      title: Text('${medicineEntries[index].name}'),
+                      subtitle: Text('${medicineEntries[index].generic}'),
+                      trailing: Text('${medicineEntries[index].price}'),
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return MedicineDetails(medicineEntries[index]);
+                            }));
+                      },
+                    ),
+                  );
                 },
               ),
-            );
-          },
-        ),
+          ),
+        ],
       ),
-    );
+      );
   }
 }

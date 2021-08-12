@@ -26,18 +26,18 @@ class _BloodDonersScreenState extends State<BloodDonersScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: BloodDonersEntries.length,
+                    itemCount: bloodDonersEntries.length,
                     itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: ListTile(
-                        title: Text('${BloodDonersEntries[index].name}'),
-                        subtitle: Text('${BloodDonersEntries[index].address}'),
+                        title: Text('${bloodDonersEntries[index].name}'),
+                        subtitle: Text('${bloodDonersEntries[index].address}'),
                         trailing: IconButton(
                           iconSize: 18,
                           icon: const Icon(Icons.call),
                           color: theme.colorScheme.secondary,
                           onPressed:() {
-                            launch(('tel://${BloodDonersEntries[index].phoneNo}'));
+                            launch(('tel://${bloodDonersEntries[index].phoneNo}'));
                           },
                         ),
 

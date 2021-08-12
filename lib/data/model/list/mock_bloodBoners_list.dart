@@ -1,6 +1,6 @@
 import 'package:msf/data/model/item/bloodDoners_item.dart';
 
-final List<BloodDonersItem> BloodDonersEntries = [
+final List<BloodDonersItem> bloodDonersEntries = [
   BloodDonersItem(
     111,
     'zxc',

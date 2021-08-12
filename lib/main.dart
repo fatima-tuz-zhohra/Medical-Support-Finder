@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:msf/authentication/splash/splash.dart';
+import 'package:msf/theme/themes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '',
-      theme: ThemeData.from(colorScheme: ColorScheme.light(
-        primary: Color(0xff009688),
-        secondary: Color(0xff80cbc4),
-      )),
+      theme: lightTheme,
       home: SplashPage(),
     );
   }
