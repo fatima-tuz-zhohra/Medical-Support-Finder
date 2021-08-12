@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:msf/data/model/medicine_item.dart';
+import 'package:msf/data/model/item/medicine_item.dart';
 
 class MedicineDetails extends StatelessWidget {
   MedicineDetails(this.medicineItem, {Key? key}) : super(key: key);

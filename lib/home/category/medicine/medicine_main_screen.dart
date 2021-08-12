@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:msf/data/mock_medicine_list.dart';
-import 'package:msf/data/model/medicine_item.dart';
+import 'package:msf/data/model/list/mock_medicine_list.dart';
+import 'package:msf/data/model/item/medicine_item.dart';
 import 'package:msf/home/category/medicine/medicine_details.dart';
 
 class MedicineMainScreen extends StatefulWidget {

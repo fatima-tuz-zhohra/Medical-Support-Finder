@@ -1,4 +1,4 @@
-import 'model/medicine_item.dart';
+import '../item/medicine_item.dart';
 
 final List<MedicineItem> medicineEntries = [
   MedicineItem(

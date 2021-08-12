@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BloodDonersListScreen extends StatefulWidget {
-  const BloodDonersListScreen({Key? key}) : super(key: key);
+class BloodDonersScreen extends StatefulWidget {
+  const BloodDonersScreen({Key? key}) : super(key: key);
 
   @override
-  _BloodDonersListScreenState createState() => _BloodDonersListScreenState();
+  _BloodDonersScreenState createState() => _BloodDonersScreenState();
 }
 
-class _BloodDonersListScreenState extends State<BloodDonersListScreen> {
+class _BloodDonersScreenState extends State<BloodDonersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

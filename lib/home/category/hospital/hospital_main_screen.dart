@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:msf/data/mock_hospital_list.dart';
+import 'package:msf/data/model/list/mock_hospital_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HospitalMainScreen extends StatefulWidget {
