@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/list/mock_bloodBank_list.dart';
+import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,44 +20,50 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
         centerTitle: true,
         title: Text('Blood Bank'),
       ),
-      body: SafeArea(
-        child:
-          ListView.builder(
-            itemCount: BloodBankEntries.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: Text('${BloodBankEntries[index].name}'),
-                  subtitle: Text('${BloodBankEntries[index].address}'),
-                  trailing:
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        iconSize: 18,
-                        icon: const Icon(Icons.location_on),
-                        color: theme.colorScheme.secondary,
-                        onPressed:() {
-                          navigateTo(BloodBankEntries[index].latitude, BloodBankEntries[index].longitude);
-                        },
-                      ),
-                      IconButton(
-                        iconSize: 18,
-                        icon: const Icon(Icons.call),
-                        color: theme.colorScheme.secondary,
-                        onPressed:() {
-                          launch(('tel://${BloodBankEntries[index].phoneNo}'));
-                        },
-                      )
-                    ],
+      body: Column(
+        children: [
+          SearchView(onTextChange: (String ) { },
+          ),
+          
+          Expanded(
+            child: ListView.builder(
+              itemCount: BloodBankEntries.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Text('${BloodBankEntries[index].name}'),
+                    subtitle: Text('${BloodBankEntries[index].address}'),
+                    trailing:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          iconSize: 18,
+                          icon: const Icon(Icons.location_on),
+                          color: theme.colorScheme.secondary,
+                          onPressed:() {
+                            navigateTo(BloodBankEntries[index].latitude, BloodBankEntries[index].longitude);
+                          },
+                        ),
+                        IconButton(
+                          iconSize: 18,
+                          icon: const Icon(Icons.call),
+                          color: theme.colorScheme.secondary,
+                          onPressed:() {
+                            launch(('tel://${BloodBankEntries[index].phoneNo}'));
+                          },
+                        )
+                      ],
+                    ),
+
+
                   ),
-
-
-                ),
-              );
-            },
-          )
+                );
+              },
+            ),
+          ),
+        ],
       ),
       );
   }
