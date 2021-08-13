@@ -17,7 +17,10 @@ class _SignUpState extends State<SignUp> {
   final phonenoController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final snackBar = SnackBar(content: Text('Error!'));
+  final snackBar = SnackBar(
+      content: Text('Error!'),
+    backgroundColor: Colors.red,
+  );
 
   @override
   Widget build(BuildContext context) {
