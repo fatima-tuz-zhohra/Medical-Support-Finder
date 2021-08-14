@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/authentication/login/loginpage.dart';
+import 'package:msf/widgets/input_field.dart';
+import 'package:msf/widgets/rounded_button.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     return Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
@@ -39,60 +42,40 @@ class _SignUpState extends State<SignUp> {
             children: [
               Padding(
                 padding: EdgeInsets.all(8),
-                child: TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle),
-                        filled: true,
-                        //fillColor: Colors.blueAccent,
-                        border: OutlineInputBorder(),
-                        labelText: 'Name')),
+                child: InputField(
+                  icon: Icon(Icons.account_circle),
+                  hintText: 'Name',
+                  controller: nameController,
+                ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: size.height * 0.01),
               Padding(
                 padding: EdgeInsets.all(8),
-                child: TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        filled: true,
-                        //fillColor: Colors.blueAccent,
-                        border: OutlineInputBorder(),
-                        labelText: 'Email')),
+                child: InputField(
+                  icon: Icon(Icons.email),
+                  hintText: 'E-mail',
+                  controller: emailController,
+                ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: size.height * 0.01),
               Padding(
                 padding: EdgeInsets.all(8),
-                child: TextField(
-                    controller: phonenoController,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.phone),
-                        filled: true,
-                        //fillColor: Colors.blueAccent,
-                        border: OutlineInputBorder(),
-                        labelText: 'Phone No')),
+                child: InputField(
+                  icon: Icon(Icons.phone),
+                  hintText: 'Phone No',
+                  controller: phonenoController,
+                ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: size.height * 0.01),
               Padding(
                 padding: EdgeInsets.all(8),
-                child: TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
-                        filled: true,
-                        //fillColor: Colors.blueAccent,
-                        border: OutlineInputBorder(),
-                        labelText: 'Password')),
+                child: InputField(
+                  icon: Icon(Icons.lock),
+                  hintText: 'Password',
+                  controller: passwordController,
+                ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: size.height * 0.02),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Checkbox(
                   value: this.value,
@@ -107,48 +90,14 @@ class _SignUpState extends State<SignUp> {
                       color: Colors.deepOrange,
                     )),
               ]),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: 50,
-                width: 324,
-                child: MaterialButton(
-                  color:  theme.colorScheme.primary,
-                  onPressed: () {
-                    String name = nameController.text;
-                    String email = emailController.text;
-                    String phoneno = phonenoController.text;
-                    String pass = passwordController.text;
-
-                    if (nameController.text == "" ||
-                        emailController.text == "" ||
-                        phonenoController.text == "" ||
-                        passwordController.text == "") {
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return LoginPage();
-                          },
-                        ),
-                      );
-                    }
+              SizedBox(height: size.height * 0.02),
+              RoundedButton(
+                  text: 'Sign Up',
+                  press: (){
+                    _onSignUpButtonPressed(context);
                   },
-                  child: const Text(
-                    'SignUp',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
+              SizedBox(height: size.height * 0.02),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text('Already have an Account?'),
                 TextButton(
@@ -164,5 +113,28 @@ class _SignUpState extends State<SignUp> {
             ],
           ),
         ));
+  }
+
+  void _onSignUpButtonPressed(BuildContext context){
+    String name = nameController.text;
+    String email = emailController.text;
+    String phoneno = phonenoController.text;
+    String pass = passwordController.text;
+
+    if (nameController.text == "" ||
+        emailController.text == "" ||
+        phonenoController.text == "" ||
+        passwordController.text == "") {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginPage();
+          },
+        ),
+      );
+    }
   }
 }
