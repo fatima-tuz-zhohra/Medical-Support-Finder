@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:msf/authentication/login/login_provider.dart';
+import 'package:msf/authentication/auth_provider.dart';
 import 'package:msf/authentication/login/loginpage.dart';
 import 'package:msf/home/home_main/homepage.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +22,9 @@ class SplashPageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginProvider>(
-      builder: (context, loginProvider, child) {
-        if (loginProvider.isLoggedIn()) {
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        if (false) {
           return HomePage();
         } else {
           return LoginPage();

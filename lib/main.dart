@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:msf/authentication/login/login_provider.dart';
+import 'package:msf/authentication/auth_provider.dart';
 import 'package:msf/authentication/splash/splash.dart';
 import 'package:msf/theme/themes.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +17,9 @@ class MSF extends StatelessWidget {
     return MaterialApp(
       theme: lightTheme,
       //home: SplashPage(),
-      home: ChangeNotifierProvider<LoginProvider>(
+      home: ChangeNotifierProvider<AuthProvider>(
         create: (context) {
-          return LoginProvider();
+          return AuthProvider();
         },
         child: SplashPage(),
       ),
