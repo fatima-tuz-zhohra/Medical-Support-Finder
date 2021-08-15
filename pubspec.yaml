@@ -31,6 +31,8 @@ dependencies:
   cloud_firestore: ^2.4.0
   bloc: ^7.0.0
   flutter_bloc: ^7.1.0
+  google_sign_in: ^5.0.7
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.1"

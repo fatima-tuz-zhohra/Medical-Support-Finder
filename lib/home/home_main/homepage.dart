@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:msf/authentication/bloc/user_bloc.dart';
 import 'package:msf/home/category/blood/blood_main_screen.dart';
 import 'package:msf/home/category/doctor/doctor_main_screen.dart';
 import 'package:msf/home/category/hospital/hospital_main_screen.dart';
@@ -10,6 +12,7 @@ import 'package:msf/widgets/grid_item.dart';
 
 class HomePage extends StatefulWidget {
   static const PATH = "/home";
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -19,11 +22,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final userBloc = BlocProvider.of<UserBloc>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
@@ -32,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Text(
-                'Here Is Everything',
+                'Hello ${userBloc.appUser?.name}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
@@ -74,9 +78,9 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     GridItemView(
-                      title:'Doctor',
+                      title: 'Doctor',
                       image: 'assets/images/heart_shape.png',
-                      onTap:  () {
+                      onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return DoctorMainScreen();
@@ -84,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     GridItemView(
-                      title:'Blood',
+                      title: 'Blood',
                       image: 'assets/images/blood1.png',
                       onTap: () {
                         Navigator.push(context,

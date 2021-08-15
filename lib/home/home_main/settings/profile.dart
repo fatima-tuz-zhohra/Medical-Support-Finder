@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:msf/authentication/bloc/user_bloc.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _ProfileState extends State<Profile> {
     'ftzelma@gmail.com',
     'ftzelma'
   ];
- List<IconData> icon = [
+  List<IconData> icon = [
     Icons.account_circle,
     Icons.phone,
     Icons.email,
@@ -26,6 +27,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final userBloc = BlocProvider.of<UserBloc>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -50,7 +52,8 @@ class _ProfileState extends State<Profile> {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.white70,
-                    backgroundImage: AssetImage('assets/images/profile.jpg'),
+                    backgroundImage:
+                        NetworkImage(userBloc.appUser?.picture ?? ''),
                   ),
                   Text('@profile'),
                 ],

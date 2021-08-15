@@ -9,3 +9,5 @@ class LoginWithEmailPassEvent extends LoginEvent {
 
   LoginWithEmailPassEvent(this.email, this.pass);
 }
+
+class LoginWithGoogleEvent extends LoginEvent {}

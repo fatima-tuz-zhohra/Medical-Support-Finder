@@ -7,6 +7,7 @@ import 'package:msf/data/constant.dart';
 import 'package:msf/home/home_main/homepage.dart';
 import 'package:msf/widgets/input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginPage extends StatefulWidget {
   static const PATH = "/login";
@@ -129,6 +130,15 @@ class _LoginForm extends StatelessWidget {
               if (isValid == true) {
                 _onLoginButtonPressed(context);
               }
+            },
+          ),
+          SizedBox(height: size.height * 0.02),
+          SignInButton(
+            Buttons.Google,
+            onPressed: () {
+              final loginBloc =
+                  BlocProvider.of<LoginBloc>(context, listen: false);
+              loginBloc.add(LoginWithGoogleEvent());
             },
           ),
           SizedBox(height: size.height * 0.02),

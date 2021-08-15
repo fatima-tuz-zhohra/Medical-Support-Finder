@@ -15,6 +15,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   AppUser? _appUser;
+
   AppUser? get appUser => _appUser;
 
   StreamSubscription? _loginStateChangeSubscription;
@@ -25,7 +26,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserLoadingState();
       _appUser = null;
       yield UserUnAuthenticatedState();
-    }else if (event is LoggedInEvent) {
+    } else if (event is LoggedInEvent) {
       yield UserLoadingState();
       yield UserAuthenticatedState();
     }
@@ -39,6 +40,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         add(LogoutEvent());
       } else {
         print('User logged in');
+        final appUser = AppUser(
+            uid: user.uid,
+            name: user.displayName ?? '',
+            email: user.email ?? '',
+            phone: user.phoneNumber ?? '',
+            picture: user.photoURL ?? '');
+        this._appUser = appUser;
         add(LoggedInEvent());
       }
     });
