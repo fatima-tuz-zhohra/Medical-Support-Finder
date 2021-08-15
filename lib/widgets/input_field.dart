@@ -15,13 +15,17 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: this.controller,
-      obscureText: false,
-      decoration: InputDecoration(
-        prefixIcon: icon,
-        labelText: hintText,
-        border: OutlineInputBorder(),
+    Size size = MediaQuery.of(context).size;
+    return  Padding(
+      padding: const EdgeInsets.all(12.16),
+      child: TextFormField(
+            controller: this.controller,
+            obscureText: false,
+            decoration: InputDecoration(
+              prefixIcon: icon,
+              labelText: hintText,
+              border: OutlineInputBorder(),
+            ),
       ),
     );
   }

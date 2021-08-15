@@ -16,7 +16,7 @@ class _SignUpState extends State<SignUp> {
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final phonenoController = TextEditingController();
+  final phoneNoController = TextEditingController();
   final passwordController = TextEditingController();
 
   final snackBar = SnackBar(
@@ -40,43 +40,32 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: InputField(
+              InputField(
                   icon: Icon(Icons.account_circle),
                   hintText: 'Name',
                   controller: nameController,
                 ),
-              ),
               SizedBox(height: size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: InputField(
+               InputField(
                   icon: Icon(Icons.email),
                   hintText: 'E-mail',
                   controller: emailController,
                 ),
-              ),
               SizedBox(height: size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: InputField(
+               InputField(
                   icon: Icon(Icons.phone),
                   hintText: 'Phone No',
-                  controller: phonenoController,
+                  controller: phoneNoController,
                 ),
-              ),
               SizedBox(height: size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: InputField(
+              InputField(
                   icon: Icon(Icons.lock),
                   hintText: 'Password',
                   controller: passwordController,
                 ),
-              ),
               SizedBox(height: size.height * 0.02),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center, children: [
                 Checkbox(
                   value: this.value,
                   onChanged: (bool? value) {
@@ -88,8 +77,10 @@ class _SignUpState extends State<SignUp> {
                 Text('I Accept Terms & Condition',
                     style: TextStyle(
                       color: Colors.deepOrange,
-                    )),
-              ]),
+                    ),
+                ),
+              ],
+              ),
               SizedBox(height: size.height * 0.02),
               RoundedButton(
                   text: 'Sign Up',
@@ -118,12 +109,12 @@ class _SignUpState extends State<SignUp> {
   void _onSignUpButtonPressed(BuildContext context){
     String name = nameController.text;
     String email = emailController.text;
-    String phoneno = phonenoController.text;
+    String phoneNo = phoneNoController.text;
     String pass = passwordController.text;
 
     if (nameController.text == "" ||
         emailController.text == "" ||
-        phonenoController.text == "" ||
+        phoneNoController.text == "" ||
         passwordController.text == "") {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {

@@ -1,15 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/authentication/login/login_provider.dart';
 import 'package:msf/authentication/splash/splash.dart';
 import 'package:msf/theme/themes.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  await Firebase.initializeApp();
+  runApp(MSF());
 }
 
-class MyApp extends StatelessWidget {
+class MSF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

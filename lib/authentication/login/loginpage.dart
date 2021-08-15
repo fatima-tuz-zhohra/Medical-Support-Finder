@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:msf/home/home_main/homepage.dart';
-import 'package:msf/main.dart';
+import 'package:msf/authentication/login/login_provider.dart';
 import 'package:msf/authentication/signup/signup.dart';
 import 'package:msf/widgets/input_field.dart';
+import 'package:msf/widgets/rounded_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
@@ -31,71 +33,29 @@ class _LoginPageState extends State<LoginPage> {
           title: Text('LOGIN'),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: InputField(
-                    icon: Icon(Icons.email),
-                    hintText: 'E-mail',
-                    controller: emailController,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                InputField(
+                      icon: Icon(Icons.mail),
+                      hintText: 'E-mail',
+                      controller: emailController,
                   ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: InputField(
+                SizedBox(height: size.height * 0.01),
+                InputField(
                     icon: Icon(Icons.lock),
                     hintText: 'Password',
                     controller: passwordController,
                   ),
+                SizedBox(height: size.height * 0.02),
+                RoundedButton(
+                  text: 'LogIn',
+                  press: () {
+                    _onSignUpButtonPressed(context);
+                  },
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 50,
-                    width: 324,
-                    child: MaterialButton(
-                      color: theme.colorScheme.primary,
-                      onPressed: () {
-                        String email = emailController.text;
-                        String pass = passwordController.text;
-
-                        print("$email");
-                        print("$pass");
-
-                        if (emailController.text == "" ||
-                            passwordController.text == "") {
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return HomePage();
-                          }));
-                        }
-                      },
-                      child: const Text(
-                        'LogIn',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 16,
-                ),
-
+                SizedBox(height: size.height * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,14 +64,34 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return SignUp();
-                        }));
+                              return SignUp();
+                            }));
                       },
                       child: Text('SignUp'),
                     )
                   ],
                 ),
-              ])),
-        ));
+              ]),
+        ),
+    );
+  }
+  void _onSignUpButtonPressed(BuildContext context) {
+    String email = emailController.text;
+    String pass = passwordController.text;
+
+    print("$email");
+    print("$pass");
+
+    if (emailController.text == "" ||
+        passwordController.text == "") {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      /*Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) {
+            return HomePage();
+          }));*/
+      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+      loginProvider.setLoggedInStatus(true);
+    }
   }
 }

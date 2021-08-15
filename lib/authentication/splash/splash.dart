@@ -24,7 +24,7 @@ class SplashPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LoginProvider>(
       builder: (context, loginProvider, child) {
-        if (loginProvider.isLoggedIn) {
+        if (loginProvider.isLoggedIn()) {
           return HomePage();
         } else {
           return LoginPage();

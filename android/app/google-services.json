@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067372164024",
+    "project_id": "medical-support-finder",
+    "storage_bucket": "medical-support-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067372164024:android:5b3bd435e5b4376725554d",
+        "android_client_info": {
+          "package_name": "com.msf.msf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067372164024-ppfc8lq97ggi72e9lh9tpjgj78gmuq4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADwpnx0-2L4Ye6cV6qGzdYzlc3GqYlqro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067372164024-ppfc8lq97ggi72e9lh9tpjgj78gmuq4u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
