@@ -4,3 +4,5 @@ part of 'user_bloc.dart';
 abstract class UserEvent {}
 
 class LogoutEvent extends UserEvent {}
+
+class LoggedInEvent extends UserEvent {}

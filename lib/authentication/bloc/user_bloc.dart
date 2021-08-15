@@ -25,6 +25,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserLoadingState();
       _appUser = null;
       yield UserUnAuthenticatedState();
+    }else if (event is LoggedInEvent) {
+      yield UserLoadingState();
+      yield UserAuthenticatedState();
     }
   }
 
@@ -36,11 +39,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         add(LogoutEvent());
       } else {
         print('User logged in');
+        add(LoggedInEvent());
       }
     });
   }
-
-  void _loginWithEmailPass(String email, String password) {}
 
   @override
   Future<void> close() {

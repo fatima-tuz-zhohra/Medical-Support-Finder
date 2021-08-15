@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:msf/authentication/auth_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:msf/authentication/login/bloc/login_bloc.dart';
 import 'package:msf/authentication/signup/signup.dart';
 import 'package:msf/data/constant.dart';
+import 'package:msf/home/home_main/homepage.dart';
 import 'package:msf/widgets/input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   static const PATH = "/login";
@@ -20,24 +21,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(AppConstants.app_name,
-                      style: theme.textTheme.headline5?.copyWith(
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold)),
-                  _LoginForm(),
-                ],
-              ),
-            )
-          ],
+    return BlocProvider<LoginBloc>(
+      create: (context) => LoginBloc(),
+      child: Scaffold(
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(AppConstants.app_name,
+                        style: theme.textTheme.headline5?.copyWith(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    _LoginForm(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -59,6 +63,34 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Logged In Successfully')),
+          );
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomePage.PATH,
+            (route) => false,
+          );
+        } else if (state is LoginFailedState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Logged In failed')),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is LoginLoadingState) {
+          return CircularProgressIndicator();
+        } else {
+          return _getBody(context);
+        }
+      },
+    );
+  }
+
+  Widget _getBody(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Form(
@@ -128,7 +160,7 @@ class _LoginForm extends StatelessWidget {
     print("$email");
     print("$pass");
 
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    authProvider.loginWithEmailPass(email, pass);
+    final loginBloc = BlocProvider.of<LoginBloc>(context, listen: false);
+    loginBloc.add(LoginWithEmailPassEvent(email, pass));
   }
 }
