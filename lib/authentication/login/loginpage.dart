@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:msf/authentication/auth_provider.dart';
 import 'package:msf/authentication/signup/signup.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/widgets/input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
+  static const PATH = "/login";
+
   @override
   State<StatefulWidget> createState() {
     return _LoginPageState();
@@ -13,7 +17,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -105,8 +108,8 @@ class _LoginForm extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
-                        return SignUp();
-                      }));
+                    return SignUp();
+                  }));
                 },
                 child: Text('SignUp'),
               )
@@ -121,8 +124,11 @@ class _LoginForm extends StatelessWidget {
     String email = emailController.text;
     String pass = passwordController.text;
 
+    //todo remove printing before release
     print("$email");
     print("$pass");
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.loginWithEmailPass(email, pass);
   }
 }
-

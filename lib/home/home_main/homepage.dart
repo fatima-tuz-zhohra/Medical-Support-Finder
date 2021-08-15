@@ -9,6 +9,7 @@ import 'package:msf/home/home_main/homepage_navigator.dart';
 import 'package:msf/widgets/grid_item.dart';
 
 class HomePage extends StatefulWidget {
+  static const PATH = "/home";
   const HomePage({Key? key}) : super(key: key);
 
   @override
