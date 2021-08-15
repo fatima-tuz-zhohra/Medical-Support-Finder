@@ -17,7 +17,6 @@ class MSF extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      //home: SplashPage(),
       home: ChangeNotifierProvider<AuthProvider>(
         create: (context) {
           return AuthProvider();
