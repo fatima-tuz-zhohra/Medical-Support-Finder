@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
                     backgroundImage:
                         NetworkImage(userBloc.appUser?.picture ?? ''),
                   ),
-                  Text('@profile'),
+                  Text(userBloc.appUser?.name??''),
                 ],
               ),
             ),
