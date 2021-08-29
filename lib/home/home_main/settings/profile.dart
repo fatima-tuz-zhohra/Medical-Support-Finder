@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/bloc/user_bloc.dart';
+import 'package:msf/authentication/login/loginPage.dart';
+import 'package:msf/widgets/rounded_button.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -10,7 +13,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final List<String> entries = ['name', 'mobile no', 'email', 'password'];
+  final List<String> entries = ['name', 'mobile no', 'email', 'password',];
   final List<String> userentries = [
     'ftz',
     '01408-485584',
@@ -74,10 +77,22 @@ class _ProfileState extends State<Profile> {
                       ),
                     );
                   }),
-            )
+            ),
+            RoundedButton(
+              text: 'LogOut',
+              press: _signOut
+            ),
           ],
         ),
       ),
     );
+
+  }
+  Future<void> _signOut() async{
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) {
+          return LogInPage();
+        }));
   }
 }

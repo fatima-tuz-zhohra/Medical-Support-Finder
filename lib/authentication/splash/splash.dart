@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/bloc/user_bloc.dart';
-import 'package:msf/authentication/login/loginpage.dart';
+import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/home/home_main/homepage.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,7 @@ class SplashPageScreen extends StatelessWidget {
         } else if (state is UserUnAuthenticatedState) {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            LoginPage.PATH,
+            LogInPage.PATH,
             (route) => false,
           );
         }

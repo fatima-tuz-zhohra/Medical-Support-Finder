@@ -68,7 +68,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       // Once signed in, return the UserCredential
       await FirebaseAuth.instance.signInWithCredential(credential);
       return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return false;
     } catch (e) {
+      print(e);
       return false;
     }
   }

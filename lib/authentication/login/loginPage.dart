@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/login/bloc/login_bloc.dart';
-import 'package:msf/authentication/signup/signup.dart';
+import 'package:msf/authentication/signup/signupPage.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/home/home_main/homepage.dart';
 import 'package:msf/widgets/input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-class LoginPage extends StatefulWidget {
+class LogInPage extends StatefulWidget {
   static const PATH = "/login";
 
   @override
   State<StatefulWidget> createState() {
-    return _LoginPageState();
+    return _LogInPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -150,7 +150,7 @@ class _LoginForm extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
-                    return SignUp();
+                    return SignUpPage();
                   }));
                 },
                 child: Text('SignUp'),
