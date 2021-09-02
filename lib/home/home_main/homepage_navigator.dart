@@ -17,7 +17,7 @@ class _HomepageNavigatorState extends State<HomepageNavigator> {
       onTap: (index) {
         if (index == 0) {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Profile();
+            return ProfilePage();
           }));
         } else if (index == 1) {
         } else if (index == 2) {

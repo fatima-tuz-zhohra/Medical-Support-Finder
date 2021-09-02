@@ -5,27 +5,25 @@ import 'package:msf/authentication/bloc/user_bloc.dart';
 import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
-  final List<String> entries = ['name', 'mobile no', 'email', 'password',];
-  final List<String> userentries = [
-    'ftz',
-    '01408-485584',
-    'ftzelma@gmail.com',
-    'ftzelma'
-  ];
-  List<IconData> icon = [
-    Icons.account_circle,
-    Icons.phone,
-    Icons.email,
-    Icons.lock,
-  ];
+class Profile {
+  String name;
+  String email;
+  String phoneNo;
+  String image;
+
+  Profile(this.name, this.email,this.phoneNo, this.image);
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+
+  Profile profile = Profile('My name', 'My email', '', '');
 
   @override
   Widget build(BuildContext context) {
@@ -53,46 +51,59 @@ class _ProfileState extends State<Profile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: 70,
                     backgroundColor: Colors.white70,
                     backgroundImage:
-                        NetworkImage(userBloc.appUser?.picture ?? ''),
+                        NetworkImage(profile.image),
                   ),
-                  Text(userBloc.appUser?.name??''),
                 ],
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: entries.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      child: ListTile(
-                        leading: Icon(icon[index]),
-                        title: Text('${entries[index]}'),
-                        subtitle: Text('${userentries[index]}'),
-                      ),
-                    );
-                  }),
+              child: Column(
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: ListTile(
+                      leading: Icon(Icons.account_circle),
+                      title: Text('Name'),
+                      subtitle: Text(profile.name),
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: ListTile(
+                      leading: Icon(Icons.email),
+                      title: Text('E-mail'),
+                      subtitle: Text(profile.email),
+
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: ListTile(
+                      leading: Icon(Icons.call),
+                      title: Text('Phone No'),
+                      subtitle: Text(profile.name),
+                    ),
+                  )
+                ],
+              ),
             ),
-            RoundedButton(
-              text: 'LogOut',
-              press: _signOut
-            ),
+            RoundedButton(text: 'LogOut', press: _signOut),
           ],
         ),
       ),
     );
-
   }
-  Future<void> _signOut() async{
+
+  Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) {
-          return LogInPage();
-        }));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return LogInPage();
+    }));
   }
 }
