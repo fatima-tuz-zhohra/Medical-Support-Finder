@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 part 'login_event.dart';
-
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

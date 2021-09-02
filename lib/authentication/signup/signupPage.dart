@@ -187,6 +187,6 @@ class _SignUpForm extends StatelessWidget{
     print("$pass");
 
     final loginBloc = BlocProvider.of<SignupBloc>(context, listen: false);
-    loginBloc.add(SignUpWithEmailPassEvent(name, email, phoneNo, pass));
+    loginBloc.add(SignupWithRequiredEvent(name, email, phoneNo, pass));
   }
 }
