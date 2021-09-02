@@ -3,8 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:msf/services/database.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -64,7 +66,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     try {
       // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final cd = await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = cd.user!;
+
+      final db = DatabaseService(uid: user.uid);
+      db.updateUserData(
+          user.displayName ?? '', user.phoneNumber ?? '' , user.email ?? '', user.photoURL ??'');
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
