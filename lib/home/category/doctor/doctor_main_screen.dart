@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:msf/widgets/horizontal_list_view.dart';
 
 class DoctorMainScreen extends StatefulWidget {
   const DoctorMainScreen({Key? key}) : super(key: key);
@@ -16,13 +17,12 @@ class _DoctorMainScreenState extends State<DoctorMainScreen> {
         title: Text('Doctor'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Doctor Screen"),
-              ],
-            )),
+        child: Column(
+          children: [
+            Text("Doctor Screen"),
+            HorizontalListView()
+          ],
+        ),
       ),
     );
   }
