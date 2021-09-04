@@ -32,13 +32,27 @@ class _BloodDonersScreenState extends State<BloodDonersScreen> {
                       child: ListTile(
                         title: Text('${bloodDonersEntries[index].name}'),
                         subtitle: Text('${bloodDonersEntries[index].address}'),
-                        trailing: IconButton(
-                          iconSize: 18,
-                          icon: const Icon(Icons.call),
-                          color: theme.colorScheme.secondary,
-                          onPressed:() {
-                            launch(('tel://${bloodDonersEntries[index].phoneNo}'));
-                          },
+                        trailing: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              iconSize: 18,
+                              icon: const Icon(Icons.call),
+                              color: theme.colorScheme.secondary,
+                              onPressed:() {
+                                launch('tel://${bloodDonersEntries[index].phoneNo}');
+                              },
+                            ),
+                            IconButton(
+                              iconSize: 18,
+                              icon: const Icon(Icons.sms),
+                              color: theme.colorScheme.secondary,
+                              onPressed:() {
+                                launch ('sms://${bloodDonersEntries[index].chatting}');
+                              },
+                            ),
+                          ],
                         ),
 
                       ),

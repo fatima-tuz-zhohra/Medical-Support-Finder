@@ -3,6 +3,7 @@ class BloodDonersItem{
   String name;
   String address;
   String phoneNo;
+  String chatting;
 
-  BloodDonersItem(this.id, this.name, this.address, this.phoneNo);
+  BloodDonersItem(this.id, this.name, this.address, this.phoneNo, this.chatting);
 }

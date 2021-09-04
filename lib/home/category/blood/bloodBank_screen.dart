@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:msf/data/model/list/mock_bloodBank_list.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BloodBankScreen extends StatefulWidget {
   const BloodBankScreen({Key? key}) : super(key: key);

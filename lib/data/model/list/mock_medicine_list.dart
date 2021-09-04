@@ -1,15 +1,13 @@
 import '../item/medicine_item.dart';
 
-final List<MedicineItem> medicineEntries = [
+/*final List<MedicineItem> medicineEntries = [
   MedicineItem(
-      111,
       'a',
       'ftz',
       '100 tk',
       'details'
   ),
   MedicineItem(
-      112,
       'bb',
       'ftz',
       '200 tk',
@@ -71,4 +69,4 @@ final List<MedicineItem> medicineEntries = [
       '1000 tk',
       'details'
   ),
-];
+];*/
