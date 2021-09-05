@@ -1,9 +1,13 @@
-class HospitalItem{
-  int id;
+class HospitalItem {
   String name;
+  String address;
   double latitude;
   double longitude;
-  String location;
 
-  HospitalItem(this.id, this.name, this.latitude, this.longitude, this.location);
+  HospitalItem(
+    this.name,
+    this.address,
+    this.latitude,
+    this.longitude,
+  );
 }

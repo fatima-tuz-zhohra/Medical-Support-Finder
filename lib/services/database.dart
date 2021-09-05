@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:msf/data/model/item/medicine_item.dart';
 import 'package:msf/home/home_main/settings/profile.dart';
 
 class DatabaseService {
@@ -37,5 +36,16 @@ class MedicineService {
 
   Stream<QuerySnapshot<Object?>> getMedicines() {
     return medicineCollection.snapshots();
+  }
+}
+
+class HospitalService {
+  HospitalService();
+
+  final CollectionReference hospitalCollection =
+  FirebaseFirestore.instance.collection('Hospitals');
+
+  Stream<QuerySnapshot<Object?>> getHospital() {
+    return hospitalCollection.snapshots();
   }
 }

@@ -20,7 +20,7 @@ class _DoctorMainScreenState extends State<DoctorMainScreen> {
         child: Column(
           children: [
             Text("Doctor Screen"),
-            HorizontalListView()
+            HorizontalListView(),
           ],
         ),
       ),

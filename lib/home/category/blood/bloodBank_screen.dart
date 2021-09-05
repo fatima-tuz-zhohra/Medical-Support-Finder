@@ -67,7 +67,6 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
       );
   }
   void navigateTo(double lat, double lng) async {
-    //var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
     var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
     if (await canLaunch(uri.toString())) {
       await launch(uri.toString());
