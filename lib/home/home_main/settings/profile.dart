@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/bloc/user_bloc.dart';
 import 'package:msf/authentication/login/loginPage.dart';
+import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
@@ -11,15 +12,6 @@ class ProfilePage extends StatefulWidget {
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
-}
-
-class Profile {
-  String name;
-  String email;
-  String phoneNo;
-  String image;
-
-  Profile(this.name, this.email, this.phoneNo, this.image);
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -71,6 +63,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: Colors.white70,
                 backgroundImage: NetworkImage(profile.image),
               ),
+              SizedBox(height: 8),
+              Text("${profile.role}"),
             ],
           ),
         ),

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:msf/data/constant.dart';
+import 'package:msf/data/model/profile.dart';
 import 'package:msf/home/home_main/settings/profile.dart';
 
 class DatabaseService {
@@ -15,6 +17,7 @@ class DatabaseService {
       'name': name,
       'phoneNo': phoneNo,
       'email': email,
+      'role': Roles.user,
       'image': image,
     });
   }
@@ -23,7 +26,7 @@ class DatabaseService {
     final doc = await usersCollection.doc(uid).get();
     final data = doc.data() as Map<String, dynamic>;
     final profile =
-        Profile(data['name'], data['email'], data['phoneNo'], data['image']);
+        Profile(data['name'], data['email'], data['phoneNo'], data['role'], data['image']);
     return profile;
   }
 }
