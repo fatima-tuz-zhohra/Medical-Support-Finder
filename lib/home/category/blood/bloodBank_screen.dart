@@ -43,7 +43,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
 
                 bloodBanks.add(bloodBank);
               });
-              return _BloodListContent(bloodBanks: bloodBanks);
+              return BloodListContent(bloodBanks: bloodBanks);
             } else {
               return Container();
             }
@@ -52,19 +52,48 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
   }
 }
 
-class _BloodListContent extends StatelessWidget {
-  const _BloodListContent({Key? key, required this.bloodBanks})
+class BloodListContent extends StatefulWidget {
+  const BloodListContent({Key? key, required this.bloodBanks})
       : super(key: key);
   final List<BloodBankItem> bloodBanks;
 
   @override
+  _BloodListContentState createState() => _BloodListContentState();
+}
+
+class _BloodListContentState extends State<BloodListContent> {
+  List<BloodBankItem> bloodBanks = [];
+  String searchKey = "";
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    if (searchKey.isEmpty) {
+      bloodBanks = widget.bloodBanks;
+    }
 
     return Column(
       children: [
         SearchView(onTextChange: (text) {
           print(text);
+          print('Current list size ${bloodBanks.length}');
+
+          List<BloodBankItem> filtered = [];
+          widget.bloodBanks.forEach((element) {
+            if (element.name != null &&
+                element.name!
+                    .toLowerCase()
+                    .startsWith(text.toLowerCase())) {
+              filtered.add(element);
+            }
+          });
+
+          print('Matched: ${filtered.length} items');
+
+          setState(() {
+            searchKey = text;
+            bloodBanks = filtered;
+          });
         }),
         Expanded(
           child: ListView.builder(
