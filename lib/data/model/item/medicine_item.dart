@@ -1,7 +1,7 @@
 class MedicineItem {
  late String? name;
  late String? generic;
- late String companyName;
+ late String? companyName;
  late double? price;
  late String? description;
 

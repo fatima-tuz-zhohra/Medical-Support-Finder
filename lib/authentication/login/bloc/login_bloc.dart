@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:msf/data/constant.dart';
 import 'package:msf/services/database.dart';
 
 part 'login_event.dart';
@@ -70,8 +71,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user = cd.user!;
 
       final db = DatabaseService(uid: user.uid);
-      db.updateUserData(
-          user.displayName ?? '', user.phoneNumber ?? '' , user.email ?? '', user.photoURL ??'');
+      final isExistingUser = await db.isExistingUser();
+      if (!isExistingUser) {
+        db.updateUserData(user.displayName ?? '', user.phoneNumber ?? '',
+            user.email ?? '', RolesConstants.user ??'',  user.photoURL ?? '');
+      }
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

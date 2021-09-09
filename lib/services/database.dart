@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
-import 'package:msf/home/home_main/settings/profile.dart';
 
 class DatabaseService {
   final String uid;
@@ -12,14 +10,19 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('Users');
 
   Future<void> updateUserData(
-      String name, String phoneNo, String email, String image) async {
+      String name, String phoneNo, String email, String role, String image) async {
     return await usersCollection.doc(uid).set({
       'name': name,
       'phoneNo': phoneNo,
       'email': email,
-      'role': Roles.user,
+      'role': role,
       'image': image,
     });
+  }
+
+  Future<bool> isExistingUser() async{
+    final data = await usersCollection.doc(uid).get();
+    return data.exists;
   }
 
   Future<Profile> getUserData() async {
@@ -50,5 +53,16 @@ class HospitalService {
 
   Stream<QuerySnapshot<Object?>> getHospital() {
     return hospitalCollection.snapshots();
+  }
+}
+
+class BloodBankService {
+  BloodBankService();
+
+  final CollectionReference bloodBankCollection =
+  FirebaseFirestore.instance.collection('Blood Bank');
+
+  Stream<QuerySnapshot<Object?>> getBloodBank() {
+    return bloodBankCollection.snapshots();
   }
 }
