@@ -25,6 +25,7 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
           SearchView(
             onTextChange: (String) {},
           ),
+
           Expanded(
             child: StreamBuilder<QuerySnapshot<Object?>>(
               stream: MedicineService().getMedicines(),
@@ -35,7 +36,8 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
                     width: 44,
                     child: CircularProgressIndicator(),
                   );
-                } else if (snapshot.hasData) {
+                }
+                else if (snapshot.hasData) {
                   final data = snapshot.requireData;
                   final List<MedicineItem> medicines = [];
 
@@ -49,7 +51,6 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
                         dbItem['description']);
                     medicines.add(medicine);
                   });
-
                   return ListView.builder(
                     itemCount: medicines.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -72,7 +73,8 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
                       );
                     },
                   );
-                } else {
+                }
+                else {
                   return Container();
                 }
               },

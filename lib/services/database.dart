@@ -66,3 +66,14 @@ class BloodBankService {
     return bloodBankCollection.snapshots();
   }
 }
+
+class BloodDonorService {
+  BloodDonorService();
+
+  final CollectionReference bloodDonorCollection =
+  FirebaseFirestore.instance.collection('Blood_Donors');
+
+  Stream<QuerySnapshot<Object?>> getBloodDonor() {
+    return bloodDonorCollection.snapshots();
+  }
+}

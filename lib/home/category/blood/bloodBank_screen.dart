@@ -20,6 +20,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
         centerTitle: true,
         title: Text('Blood Bank'),
       ),
+
       body: StreamBuilder<QuerySnapshot<Object?>>(
           stream: BloodBankService().getBloodBank(),
           builder: (context, snapshot) {

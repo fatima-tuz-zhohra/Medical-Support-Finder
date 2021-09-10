@@ -1,9 +1,8 @@
-class BloodDonersItem{
-  int id;
-  String name;
-  String address;
-  String phoneNo;
-  String chatting;
+class BloodDonorsItem{
+  String? name;
+  String? address;
+  String? bloodGroup;
+  String? phoneNo;
 
-  BloodDonersItem(this.id, this.name, this.address, this.phoneNo, this.chatting);
+  BloodDonorsItem(this.name, this.address, this.bloodGroup, this.phoneNo);
 }
