@@ -7,7 +7,7 @@ import 'package:msf/home/category/doctor/doctor_main_screen.dart';
 import 'package:msf/home/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/category/medicine/medicine_main_screen.dart';
 import 'package:msf/home/category/oxygen/oxygen_main_screen.dart';
-import 'package:msf/home/home_main/homepage_navigator.dart';
+import 'package:msf/home/home_navigation/homepage_navigator.dart';
 import 'package:msf/widgets/grid_item.dart';
 
 class HomePage extends StatefulWidget {

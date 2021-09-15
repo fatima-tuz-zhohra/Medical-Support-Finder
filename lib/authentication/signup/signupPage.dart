@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/authentication/signup/bloc/signup_bloc.dart';
-import 'package:msf/home/home_main/homepage.dart';
+import 'package:msf/home/home_navigation/homepage.dart';
 import 'package:msf/widgets/input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
