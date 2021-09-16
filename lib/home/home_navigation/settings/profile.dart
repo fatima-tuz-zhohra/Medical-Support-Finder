@@ -47,7 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
           width: double.infinity,
           height: 180,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12)),
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -56,15 +58,28 @@ class _ProfilePageState extends State<ProfilePage> {
                   theme.colorScheme.secondary,
                 ]),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 70,
-                backgroundColor: Colors.white70,
-                backgroundImage: NetworkImage(profile.image),
-              ),
-            ],
+          child: Center(
+            child: Stack(
+              children: [
+                Container(
+                  height: 140,
+                  width: 140,
+                  //  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(profile.image),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              if(profile.isBloodDonor) Positioned.fill(
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: Image.asset('assets/icons/blood_icon_profile.png', height: 32,)),
+                )
+              ],
+            ),
           ),
         ),
         Expanded(
@@ -113,21 +128,19 @@ class _ProfilePageState extends State<ProfilePage> {
     }));
   }
 
- Widget _createBloodDonorCard(BuildContext context, Profile profile) {
+  Widget _createBloodDonorCard(BuildContext context, Profile profile) {
     return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         leading: Icon(Icons.call),
         trailing: Switch(
             value: profile.isBloodDonor,
             onChanged: (newValue) async {
               final firebaseUser = FirebaseAuth.instance.currentUser;
-              final service =
-              DatabaseService(uid: firebaseUser?.uid ?? '');
-              if(newValue == true) {
+              final service = DatabaseService(uid: firebaseUser?.uid ?? '');
+              if (newValue == true) {
                 await becomeBloodDonor(profile);
-              }else {
+              } else {
                 //user doesn't wants to stay a blood donor
                 await service.removeBloodDonor();
               }
@@ -139,24 +152,23 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Future<void> becomeBloodDonor(Profile profile) async{
+  Future<void> becomeBloodDonor(Profile profile) async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
-    final service =
-    DatabaseService(uid: firebaseUser?.uid ?? '');
-    if(profile.bloodGroup == null || profile.bloodGroup!.isEmpty){
+    final service = DatabaseService(uid: firebaseUser?.uid ?? '');
+    if (profile.bloodGroup == null || profile.bloodGroup!.isEmpty) {
       // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
-      final String? bloodGroup = await showDialog(context: context, builder: (context) => SingleInputDialog(hint: 'Enter Blood Group'));
-      if(bloodGroup != null && bloodGroup.isNotEmpty){
+      final String? bloodGroup = await showDialog(
+          context: context,
+          builder: (context) => SingleInputDialog(hint: 'Enter Blood Group'));
+      if (bloodGroup != null && bloodGroup.isNotEmpty) {
         //Got the blood group.... Yeeeee!
-        service.updateProfile({
-          'bloodGroup': bloodGroup
-        });
+        service.updateProfile({'bloodGroup': bloodGroup});
         profile.bloodGroup = bloodGroup;
         await service.becomeBloodDonor(profile);
-      }else{
+      } else {
         // User didn't provide blood group. Let's do nothing!!!
       }
-    }else {
+    } else {
       // user has blood group.
       await service.becomeBloodDonor(profile);
     }
