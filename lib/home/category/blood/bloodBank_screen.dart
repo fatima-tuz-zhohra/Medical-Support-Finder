@@ -41,7 +41,6 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
                   double.parse("${dbItem['latitude']}"),
                   double.parse("${dbItem['longitude']}"),
                 );
-
                 bloodBanks.add(bloodBank);
               });
               return BloodListContent(bloodBanks: bloodBanks);
