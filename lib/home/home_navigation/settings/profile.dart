@@ -97,7 +97,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: Text('Phone No'),
                   subtitle: Text(profile.phoneNo),
                 ),
-              )
+              ),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                child: ListTile(
+                  leading: Icon(Icons.supervised_user_circle),
+                  title: Text('User Roll'),
+                  subtitle: Text(profile.role!),
+                  trailing:
+                    IconButton(
+                      iconSize: 18,
+                      icon: const Icon(Icons.edit_location_outlined),
+                      color: theme.colorScheme.secondary,
+                      onPressed: () {
+                      },
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
