@@ -6,6 +6,7 @@ import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/rounded_button.dart';
+import 'package:msf/widgets/single_input_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -125,8 +126,9 @@ class _ProfilePageState extends State<ProfilePage> {
               final service =
               DatabaseService(uid: firebaseUser?.uid ?? '');
               if(newValue == true) {
-                await service.becomeBloodDonor(profile);
+                await becomeBloodDonor(profile);
               }else {
+                //user doesn't wants to stay a blood donor
                 await service.removeBloodDonor();
               }
               setState(() {});
@@ -135,5 +137,28 @@ class _ProfilePageState extends State<ProfilePage> {
         subtitle: Text(profile.isBloodDonor ? 'Yes' : 'No'),
       ),
     );
+  }
+
+  Future<void> becomeBloodDonor(Profile profile) async{
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    final service =
+    DatabaseService(uid: firebaseUser?.uid ?? '');
+    if(profile.bloodGroup == null || profile.bloodGroup!.isEmpty){
+      // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
+      final String? bloodGroup = await showDialog(context: context, builder: (context) => SingleInputDialog(hint: 'Enter Blood Group'));
+      if(bloodGroup != null && bloodGroup.isNotEmpty){
+        //Got the blood group.... Yeeeee!
+        service.updateProfile({
+          'bloodGroup': bloodGroup
+        });
+        profile.bloodGroup = bloodGroup;
+        await service.becomeBloodDonor(profile);
+      }else{
+        // User didn't provide blood group. Let's do nothing!!!
+      }
+    }else {
+      // user has blood group.
+      await service.becomeBloodDonor(profile);
+    }
   }
 }
