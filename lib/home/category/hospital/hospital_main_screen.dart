@@ -21,65 +21,98 @@ class _HospitalMainScreenState extends State<HospitalMainScreen> {
         centerTitle: true,
         title: Text('Hospital'),
       ),
+      body: StreamBuilder<QuerySnapshot<Object?>>(
+          stream: HospitalService().getHospital(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasData) {
+              final data = snapshot.requireData;
+              final List<HospitalItem> hospitals = [];
 
-      body: Column(
-        children: [
-          SearchView(
-            onTextChange: (String) {},
-          ),
+              data.docs.forEach((element) {
+                final dbItem = element.data()! as Map<String, dynamic>;
+                final hospital = HospitalItem(
+                  dbItem['name'],
+                  dbItem['address'],
+                  double.parse("${dbItem['latitude']}"),
+                  double.parse("${dbItem['longitude']}"),
+                );
+                hospitals.add(hospital);
+              });
 
-          Expanded(
-            child: StreamBuilder<QuerySnapshot<Object?>>(
-                stream: HospitalService().getHospital(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  }
-                  else if (snapshot.hasData) {
-                    final data = snapshot.requireData;
-                    final List<HospitalItem> hospitals = [];
-
-                    data.docs.forEach((element) {
-                      final dbItem = element.data()! as Map<String, dynamic>;
-                      final hospital = HospitalItem(
-                        dbItem['name'],
-                        dbItem['address'],
-                        double.parse("${dbItem['latitude']}"),
-                        double.parse("${dbItem['longitude']}"),
-                      );
-                      hospitals.add(hospital);
-                    });
-
-                    return ListView.builder(
-                        itemCount: hospitals.length,
-                        itemBuilder: (BuildContext context, int index){
-                      return Card(
-                        child: ListTile(
-                          title: Text('${hospitals[index].name}'),
-                          subtitle: Text('${hospitals[index].address}'),
-                          trailing: IconButton(
-                            iconSize: 18,
-                            icon: const Icon(Icons.location_on),
-                            color: theme.colorScheme.secondary,
-                            onPressed: () {
-                              navigateTo(hospitals[index].latitude, hospitals[index].longitude);
-                            },
-                          ),
-                        ),
-
-                      );
-                    },
-                    );
-                  }
-                else {
-                    return Container();
-                  }
+              return HospitalListContent(hospitals: hospitals);
+            } else {
+              return Container();
             }
-            ),
-          ),
+          }),
+    );
+  }
+}
 
-        ],
-      ),
+class HospitalListContent extends StatefulWidget {
+  const HospitalListContent({Key? key, required this.hospitals})
+      : super(key: key);
+  final List<HospitalItem> hospitals;
+
+  @override
+  _HospitalListContentState createState() => _HospitalListContentState();
+}
+
+class _HospitalListContentState extends State<HospitalListContent> {
+  List<HospitalItem> hospitals = [];
+  String searchKey = "";
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    if (searchKey.isEmpty) {
+      hospitals = widget.hospitals;
+    }
+    return Column(
+      children: [
+        SearchView(onTextChange: (text) {
+          print(text);
+          print('Current list size ${hospitals.length}');
+
+          List<HospitalItem> filtered = [];
+          widget.hospitals.forEach((element) {
+            if (element.name != null &&
+                element.name!.toLowerCase().startsWith(text.toLowerCase())) {
+              filtered.add(element);
+            }
+          });
+
+          print('Matched: ${filtered.length} items');
+
+          setState(() {
+            searchKey = text;
+            hospitals = filtered;
+          });
+        }),
+        Expanded(
+          child: ListView.builder(
+            itemCount: hospitals.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                child: ListTile(
+                  title: Text('${hospitals[index].name}'),
+                  subtitle: Text('${hospitals[index].address}'),
+                  trailing: IconButton(
+                    iconSize: 18,
+                    icon: const Icon(Icons.location_on),
+                    color: theme.colorScheme.secondary,
+                    onPressed: () {
+                      navigateTo(hospitals[index].latitude,
+                          hospitals[index].longitude);
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
   void navigateTo(double lat, double lng) async {

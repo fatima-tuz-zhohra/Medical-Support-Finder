@@ -1,5 +1,5 @@
 class HospitalItem {
-  String name;
+  String? name;
   String address;
   double latitude;
   double longitude;
