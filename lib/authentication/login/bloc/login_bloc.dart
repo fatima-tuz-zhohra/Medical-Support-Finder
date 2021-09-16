@@ -74,7 +74,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final isExistingUser = await db.isExistingUser();
       if (!isExistingUser) {
         db.updateUserData(user.displayName ?? '', user.phoneNumber ?? '',
-            user.email ?? '', RolesConstants.user ??'',  user.photoURL ?? '');
+            user.email ?? '', RolesConstants.user,  user.photoURL ?? '');
       }
       return true;
     } on FirebaseAuthException catch (e) {

@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
           future: DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               final profile = snapshot.requireData;
               return _createProfileView(context, profile);
@@ -63,8 +63,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: Colors.white70,
                 backgroundImage: NetworkImage(profile.image),
               ),
-              SizedBox(height: 8),
-              Text("${profile.role}"),
             ],
           ),
         ),
@@ -98,23 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   subtitle: Text(profile.phoneNo),
                 ),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  leading: Icon(Icons.supervised_user_circle),
-                  title: Text('User Roll'),
-                  subtitle: Text(profile.role!),
-                  trailing:
-                    IconButton(
-                      iconSize: 18,
-                      icon: const Icon(Icons.edit_location_outlined),
-                      color: theme.colorScheme.secondary,
-                      onPressed: () {
-                      },
-                    ),
-                  ),
-                ),
+              _createBloodDonorCard(context, profile),
             ],
           ),
         ),
@@ -128,5 +110,30 @@ class _ProfilePageState extends State<ProfilePage> {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return LogInPage();
     }));
+  }
+
+ Widget _createBloodDonorCard(BuildContext context, Profile profile) {
+    return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: Icon(Icons.call),
+        trailing: Switch(
+            value: profile.isBloodDonor,
+            onChanged: (newValue) async {
+              final firebaseUser = FirebaseAuth.instance.currentUser;
+              final service =
+              DatabaseService(uid: firebaseUser?.uid ?? '');
+              if(newValue == true) {
+                await service.becomeBloodDonor(profile);
+              }else {
+                await service.removeBloodDonor();
+              }
+              setState(() {});
+            }),
+        title: Text('Donate Blood'),
+        subtitle: Text(profile.isBloodDonor ? 'Yes' : 'No'),
+      ),
+    );
   }
 }
