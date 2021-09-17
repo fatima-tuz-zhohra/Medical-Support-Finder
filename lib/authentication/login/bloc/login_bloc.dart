@@ -36,10 +36,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<bool> _loginWithEmailPass(String email, String password) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+    final cd = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      final user = cd.user!;
+
+      final db = DatabaseService(uid: user.uid);
+      final isExistingUser = await db.isExistingUser();
+      if (!isExistingUser) {
+        db.updateUserData(user.displayName ?? '', user.phoneNumber ?? '',
+            user.email ?? '', RolesConstants.user,  user.photoURL ?? '');
+      }
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

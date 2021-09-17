@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:msf/authentication/login/loginPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:msf/widgets/rounded_button.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -51,10 +54,20 @@ class _SettingScreenState extends State<SettingScreen> {
                   onPressed: () {},
                 ),
               ),
+
+              SizedBox(height: 40),
+              RoundedButton(text: 'LogOut', press: _signOut),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return LogInPage();
+    }));
   }
 }

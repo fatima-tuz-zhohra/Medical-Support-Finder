@@ -58,7 +58,7 @@ class DatabaseService {
       data['phoneNo'],
       data['role'],
       data['image'],
-      isBloodDonor: data['isBloodDonor'],
+      isBloodDonor: data['isBloodDonor'] ?? false,
       bloodGroup: data['bloodGroup'],
       address: data['address'],
     );

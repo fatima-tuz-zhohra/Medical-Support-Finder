@@ -76,8 +76,6 @@ class _ProfilePageState extends State<ProfilePage> {
             _createBloodDonorCard(context, profile),
           ],
         ),
-        SizedBox(height: 40),
-        RoundedButton(text: 'LogOut', press: _signOut),
       ],
     );
   }
@@ -90,13 +88,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     return name.toString();
-  }
-
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return LogInPage();
-    }));
   }
 
   Widget _createBloodDonorCard(BuildContext context, Profile profile) {
