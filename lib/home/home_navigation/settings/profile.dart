@@ -22,18 +22,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       body: SafeArea(
-        child: FutureBuilder<Profile>(
-          future: DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasData) {
-              final profile = snapshot.requireData;
-              return _createProfileView(context, profile);
-            } else {
-              return Container();
-            }
-          },
+        child: SingleChildScrollView(
+          child: FutureBuilder<Profile>(
+                future:
+                    DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData) {
+                    final profile = snapshot.requireData;
+                    return _createProfileView(context, profile);
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
         ),
       ),
     );
@@ -73,49 +76,52 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-              if(profile.isBloodDonor) Positioned.fill(
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: Image.asset('assets/icons/blood_icon_profile.png', height: 32,)),
-                )
+                if (profile.isBloodDonor)
+                  Positioned.fill(
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Image.asset(
+                          'assets/icons/blood_icon_profile.png',
+                          height: 32,
+                        )),
+                  )
               ],
             ),
           ),
         ),
-        Expanded(
-          child: Column(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Name'),
-                  subtitle: Text(profile.name),
-                ),
+        Column(
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text('Name'),
+                subtitle: Text(profile.name),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text('E-mail'),
-                  subtitle: Text(profile.email),
-                ),
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: ListTile(
+                leading: Icon(Icons.email),
+                title: Text('E-mail'),
+                subtitle: Text(profile.email),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  leading: Icon(Icons.call),
-                  title: Text('Phone No'),
-                  subtitle: Text(profile.phoneNo),
-                ),
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: ListTile(
+                leading: Icon(Icons.call),
+                title: Text('Phone No'),
+                subtitle: Text(profile.phoneNo),
               ),
-              _createBloodDonorCard(context, profile),
-            ],
-          ),
+            ),
+            _createBloodDonorCard(context, profile),
+          ],
         ),
+        SizedBox(height: 40),
         RoundedButton(text: 'LogOut', press: _signOut),
       ],
     );
