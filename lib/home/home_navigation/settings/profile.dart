@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: ListTile(
         leading: Icon(Icons.call),
         trailing: Switch(
-            value: profile.isBloodDonor,
+            value: profile.isBloodDonor ?? false,
             onChanged: (newValue) async {
               final firebaseUser = FirebaseAuth.instance.currentUser;
               final service = DatabaseService(uid: firebaseUser?.uid ?? '');
@@ -109,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             }),
         title: Text('Donate Blood'),
-        subtitle: Text(profile.isBloodDonor ? 'Yes' : 'No'),
+        subtitle: Text(profile.isBloodDonor == true ? 'Yes' : 'No'),
       ),
     );
   }

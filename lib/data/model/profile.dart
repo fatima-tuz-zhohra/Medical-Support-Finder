@@ -4,7 +4,7 @@ class Profile {
   String phoneNo;
   String? role;
   String image;
-  bool isBloodDonor;
+  bool? isBloodDonor;
   String? bloodGroup;
   String? address;
 
