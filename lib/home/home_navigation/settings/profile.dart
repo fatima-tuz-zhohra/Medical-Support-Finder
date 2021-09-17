@@ -6,6 +6,7 @@ import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/back_button.dart';
 import 'package:msf/widgets/rounded_button.dart';
 import 'package:msf/widgets/single_input_dialog.dart';
 
@@ -46,55 +47,16 @@ class _ProfilePageState extends State<ProfilePage> {
     final theme = Theme.of(context);
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          height: 180,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12)),
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.secondary,
-                ]),
-          ),
-          child: Row(
-            children: [
-              Container(
-                height: 110,
-                width: 110,
-                margin: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(profile.image),
-                      fit: BoxFit.cover,
-                    ),
-                    shape: BoxShape.circle),
-              ),
-              SizedBox(width: 12),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_createName(profile),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                  SizedBox(height: 4),
-                  Text(profile.email,
-                      style: Theme.of(context).textTheme.subtitle1),
-                  SizedBox(height: 4),
-                  if (profile.phoneNo.isNotEmpty)
-                    Text(profile.phoneNo,
-                        style: Theme.of(context).textTheme.subtitle2),
-                ],
-              )
-            ],
-          ),
+        Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 200,
+              decoration: _createProfileBG(theme),
+              child: _createProfileInfo(context, profile),
+            ),
+            MsfBackButton(),
+          ],
         ),
         Column(
           children: [
@@ -164,9 +126,10 @@ class _ProfilePageState extends State<ProfilePage> {
       // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
       final String? bloodGroup = await showDialog(
           context: context,
-          builder: (context) => SingleInputDialog(
-              hint: 'Enter Blood Group',
-              validation: AppConstants.bloodGroupValidation));
+          builder: (context) =>
+              SingleInputDialog(
+                  hint: 'Enter Blood Group',
+                  validation: AppConstants.bloodGroupValidation));
       if (bloodGroup != null && bloodGroup.isNotEmpty) {
         //Got the blood group.... Yeeeee!
         service.updateProfile({'bloodGroup': bloodGroup});
@@ -181,5 +144,64 @@ class _ProfilePageState extends State<ProfilePage> {
       await service.becomeBloodDonor(profile);
       setState(() {});
     }
+  }
+
+  Widget _createProfileInfo(BuildContext context, Profile profile) {
+    return Row(
+      children: [
+        Container(
+          height: 110,
+          width: 110,
+          margin: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(profile.image),
+                fit: BoxFit.cover,
+              ),
+              shape: BoxShape.circle),
+        ),
+        SizedBox(width: 12),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(_createName(profile),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(fontWeight: FontWeight.bold)),
+            SizedBox(height: 4),
+            Text(profile.email,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1),
+            SizedBox(height: 4),
+            if (profile.phoneNo.isNotEmpty)
+              Text(profile.phoneNo,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subtitle2),
+          ],
+        )
+      ],
+    );
+  }
+
+  BoxDecoration _createProfileBG(ThemeData theme) {
+    return BoxDecoration(
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12)),
+      gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            theme.colorScheme.primary,
+            theme.colorScheme.secondary,
+          ]),
+    );
   }
 }
