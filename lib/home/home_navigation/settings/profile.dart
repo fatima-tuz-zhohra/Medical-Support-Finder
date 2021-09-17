@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/bloc/user_bloc.dart';
 import 'package:msf/authentication/login/loginPage.dart';
+import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/rounded_button.dart';
@@ -165,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
       final String? bloodGroup = await showDialog(
           context: context,
-          builder: (context) => SingleInputDialog(hint: 'Enter Blood Group'));
+          builder: (context) => SingleInputDialog(hint: 'Enter Blood Group', validation: AppConstants.bloodGroupValidation));
       if (bloodGroup != null && bloodGroup.isNotEmpty) {
         //Got the blood group.... Yeeeee!
         service.updateProfile({'bloodGroup': bloodGroup});
