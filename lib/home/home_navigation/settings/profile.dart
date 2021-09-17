@@ -150,8 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
               } else {
                 //user doesn't wants to stay a blood donor
                 await service.removeBloodDonor();
+                setState(() {});
               }
-              setState(() {});
             }),
         title: Text('Donate Blood'),
         subtitle: Text(profile.isBloodDonor ? 'Yes' : 'No'),
@@ -172,12 +172,14 @@ class _ProfilePageState extends State<ProfilePage> {
         service.updateProfile({'bloodGroup': bloodGroup});
         profile.bloodGroup = bloodGroup;
         await service.becomeBloodDonor(profile);
+        setState(() {});
       } else {
         // User didn't provide blood group. Let's do nothing!!!
       }
     } else {
       // user has blood group.
       await service.becomeBloodDonor(profile);
+      setState(() {});
     }
   }
 }
