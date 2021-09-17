@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:msf/authentication/bloc/user_bloc.dart';
-import 'package:msf/authentication/login/loginPage.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
+import 'package:msf/home/home_navigation/settings/profile/edit_profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/back_button.dart';
-import 'package:msf/widgets/rounded_button.dart';
 import 'package:msf/widgets/single_input_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,7 +21,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return EditProfile();
+              }));
+        },
         child: Icon(Icons.edit),
       ),
       body: SafeArea(
