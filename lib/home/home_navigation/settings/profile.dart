@@ -25,19 +25,18 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: FutureBuilder<Profile>(
-                future:
-                    DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasData) {
-                    final profile = snapshot.requireData;
-                    return _createProfileView(context, profile);
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
+            future: DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                final profile = snapshot.requireData;
+                return _createProfileView(context, profile);
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
@@ -62,32 +61,39 @@ class _ProfilePageState extends State<ProfilePage> {
                   theme.colorScheme.secondary,
                 ]),
           ),
-          child: Center(
-            child: Stack(
-              children: [
-                Container(
-                  height: 140,
-                  width: 140,
-                  //  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
+          child: Row(
+            children: [
+              Container(
+                height: 110,
+                width: 110,
+                margin: EdgeInsets.all(12),
+                decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(profile.image),
                       fit: BoxFit.cover,
                     ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                if (profile.isBloodDonor)
-                  Positioned.fill(
-                    child: Align(
-                        alignment: Alignment.topRight,
-                        child: Image.asset(
-                          'assets/icons/blood_icon_profile.png',
-                          height: 32,
-                        )),
-                  )
-              ],
-            ),
+                    shape: BoxShape.circle),
+              ),
+              SizedBox(width: 12),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(_createName(profile),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 4),
+                  Text(profile.email,
+                      style: Theme.of(context).textTheme.subtitle1),
+                  SizedBox(height: 4),
+                  if (profile.phoneNo.isNotEmpty)
+                    Text(profile.phoneNo,
+                        style: Theme.of(context).textTheme.subtitle2),
+                ],
+              )
+            ],
           ),
         ),
         Column(
@@ -97,26 +103,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   borderRadius: BorderRadius.circular(12)),
               child: ListTile(
                 leading: Icon(Icons.account_circle),
-                title: Text('Name'),
-                subtitle: Text(profile.name),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-              child: ListTile(
-                leading: Icon(Icons.email),
-                title: Text('E-mail'),
-                subtitle: Text(profile.email),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-              child: ListTile(
-                leading: Icon(Icons.call),
-                title: Text('Phone No'),
-                subtitle: Text(profile.phoneNo),
+                title: Text('Address'),
+                subtitle: Text(profile.address ?? ''),
               ),
             ),
             _createBloodDonorCard(context, profile),
@@ -126,6 +114,16 @@ class _ProfilePageState extends State<ProfilePage> {
         RoundedButton(text: 'LogOut', press: _signOut),
       ],
     );
+  }
+
+  String _createName(Profile profile) {
+    StringBuffer name = StringBuffer(profile.name);
+
+    if (profile.bloodGroup != null && profile.bloodGroup!.isNotEmpty) {
+      name.write(" (${profile.bloodGroup})");
+    }
+
+    return name.toString();
   }
 
   Future<void> _signOut() async {
@@ -166,7 +164,9 @@ class _ProfilePageState extends State<ProfilePage> {
       // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
       final String? bloodGroup = await showDialog(
           context: context,
-          builder: (context) => SingleInputDialog(hint: 'Enter Blood Group', validation: AppConstants.bloodGroupValidation));
+          builder: (context) => SingleInputDialog(
+              hint: 'Enter Blood Group',
+              validation: AppConstants.bloodGroupValidation));
       if (bloodGroup != null && bloodGroup.isNotEmpty) {
         //Got the blood group.... Yeeeee!
         service.updateProfile({'bloodGroup': bloodGroup});
