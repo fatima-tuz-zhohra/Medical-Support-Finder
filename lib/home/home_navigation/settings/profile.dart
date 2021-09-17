@@ -23,6 +23,10 @@ class _ProfilePageState extends State<ProfilePage> {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.edit),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: FutureBuilder<Profile>(
@@ -126,10 +130,9 @@ class _ProfilePageState extends State<ProfilePage> {
       // User doesn't have bloodGroup in his/her profile. Let's ask for blood group
       final String? bloodGroup = await showDialog(
           context: context,
-          builder: (context) =>
-              SingleInputDialog(
-                  hint: 'Enter Blood Group',
-                  validation: AppConstants.bloodGroupValidation));
+          builder: (context) => SingleInputDialog(
+              hint: 'Enter Blood Group',
+              validation: AppConstants.bloodGroupValidation));
       if (bloodGroup != null && bloodGroup.isNotEmpty) {
         //Got the blood group.... Yeeeee!
         service.updateProfile({'bloodGroup': bloodGroup});
@@ -166,24 +169,16 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(_createName(profile),
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .headline6
                     ?.copyWith(fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            Text(profile.email,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .subtitle1),
+            Text(profile.email, style: Theme.of(context).textTheme.subtitle1),
             SizedBox(height: 4),
             if (profile.phoneNo.isNotEmpty)
               Text(profile.phoneNo,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subtitle2),
+                  style: Theme.of(context).textTheme.subtitle2),
           ],
         )
       ],
@@ -193,8 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
   BoxDecoration _createProfileBG(ThemeData theme) {
     return BoxDecoration(
       borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(12),
-          bottomRight: Radius.circular(12)),
+          bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
       gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
