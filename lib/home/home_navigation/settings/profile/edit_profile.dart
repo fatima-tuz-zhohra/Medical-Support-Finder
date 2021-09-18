@@ -1,10 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:msf/widgets/edit_input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+  EditProfile({Key? key}) : super(key: key);
+
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneNoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +20,7 @@ class EditProfile extends StatelessWidget {
             children: [
               Center(
                 child: Text("Edit Profile",
-                    style: Theme
-                        .of(context)
+                    style: Theme.of(context)
                         .textTheme
                         .headline6
                         ?.copyWith(fontWeight: FontWeight.bold)),
@@ -25,31 +28,28 @@ class EditProfile extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'name',
-                ),
+              EditInputField(
+                hintText: 'name',
+                controller: nameController,
               ),
               SizedBox(
                 height: 16,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'address',
-                ),
+              EditInputField(
+                hintText: 'address',
+                controller: addressController,
               ),
               SizedBox(
                 height: 16,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'phoneNo',
-                ),
+              EditInputField(
+                hintText: 'phoneNo',
+                controller: phoneNoController,
               ),
               SizedBox(
                 height: 20,
               ),
-              RoundedButton(text: 'Save', press: () => Navigator.pop(context)),
+              RoundedButton(text: 'Save ', press: () => Navigator.pop(context)),
             ],
           ),
         ),
