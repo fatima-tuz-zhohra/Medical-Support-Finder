@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/widgets/rounded_button.dart';
@@ -15,31 +16,39 @@ class EditProfile extends StatelessWidget {
             children: [
               Center(
                 child: Text("Edit Profile",
-                  style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(fontWeight: FontWeight.bold)
-                  ),
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontWeight: FontWeight.bold)),
               ),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               TextField(
                 decoration: InputDecoration(
                   hintText: 'name',
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               TextField(
                 decoration: InputDecoration(
                   hintText: 'address',
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               TextField(
                 decoration: InputDecoration(
                   hintText: 'phoneNo',
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               RoundedButton(text: 'Save', press: () => Navigator.pop(context)),
             ],
           ),
