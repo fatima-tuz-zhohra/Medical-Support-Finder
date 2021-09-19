@@ -27,102 +27,93 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 12,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 12),
+                Text(
+                  'Home',
+                  style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 12),
+                HomeCategory(),
+
+                SizedBox(height: 20),
+                Text('NearBy Hospital For You', style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),),
+                SizedBox(height: 8),
+                HorizontalHospitalListView(),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Text(
-                'Hello ${userBloc.appUser?.name}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontFamily: 'Poppins',
-                    fontSize: 20),
-              ),
-            ),
-             Expanded(child: HomeCategory()),
-            Text('NearBy Hospital For You'),
-            SizedBox(
-              height: 12,
-            ),
-            HorizontalHospitalListView(),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: HomepageNavigator(),
     );
   }
- Widget HomeCategory(){
-    return
-      Padding(
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
-        child: GridView(
-          padding: EdgeInsets.zero,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 2,
-          ),
-          scrollDirection: Axis.vertical,
-          children: [
-            GridItemView(
-              title: 'Medicine',
-              image: 'assets/images/medicine.png',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return MedicineMainScreen();
-                    }));
-              },
-            ),
-            GridItemView(
-              title: 'Hospital',
-              image: 'assets/images/hospital2.png',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return HospitalMainScreen();
-                    }));
-              },
-            ),
-            GridItemView(
-              title: 'Doctor',
-              image: 'assets/images/heart_shape.png',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return DoctorMainScreen();
-                    }));
-              },
-            ),
-            GridItemView(
-              title: 'Blood',
-              image: 'assets/images/blood1.png',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return BloodMainScreen();
-                    }));
-              },
-            ),
-            GridItemView(
-              title: 'Oxygen',
-              image: 'assets/images/oxygen.png',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return OxygenMainScreen();
-                    }));
-              },
-            ),
-          ],
+
+  Widget HomeCategory() {
+    return GridView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 2,
+      ),
+      scrollDirection: Axis.vertical,
+      children: [
+        GridItemView(
+          title: 'Medicine',
+          image: 'assets/images/medicine.png',
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return MedicineMainScreen();
+            }));
+          },
         ),
-      );
- }
+        GridItemView(
+          title: 'Hospital',
+          image: 'assets/images/hospital2.png',
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return HospitalMainScreen();
+            }));
+          },
+        ),
+        GridItemView(
+          title: 'Doctor',
+          image: 'assets/images/heart_shape.png',
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return DoctorMainScreen();
+            }));
+          },
+        ),
+        GridItemView(
+          title: 'Blood',
+          image: 'assets/images/blood1.png',
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return BloodMainScreen();
+            }));
+          },
+        ),
+        GridItemView(
+          title: 'Oxygen',
+          image: 'assets/images/oxygen.png',
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return OxygenMainScreen();
+            }));
+          },
+        ),
+      ],
+    );
+  }
 }

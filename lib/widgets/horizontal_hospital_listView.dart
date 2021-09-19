@@ -9,6 +9,8 @@ class HorizontalHospitalListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final displaySize = MediaQuery.of(context).size;
+
     return
       Container(
         height: 150,
@@ -18,16 +20,24 @@ class HorizontalHospitalListView extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Card(
               child: Container(
-                width: 150,
+                width: displaySize.width * .8,
                 child: ListTile(
                   title: Text('name'),
                   subtitle: Text('address'),
-                  trailing: IconButton(
-                    iconSize: 18,
-                    icon: const Icon(Icons.location_on),
-                    color: theme.colorScheme.secondary,
-                    onPressed: () {
-                    },
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: theme.colorScheme.primary,
+                      ),
+                      SizedBox(height: 4),
+                      Icon(
+                        Icons.call,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ],
                   ),
                 ),
               ),
