@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/data/model/profile.dart';
 
 class DatabaseService {
@@ -102,8 +103,22 @@ class HospitalService {
   final CollectionReference hospitalCollection =
       FirebaseFirestore.instance.collection('Hospitals');
 
-  Stream<QuerySnapshot<Object?>> getHospital() {
-    return hospitalCollection.snapshots();
+  Stream<List<HospitalItem>> getHospital() {
+    final stream = hospitalCollection.snapshots();
+    return stream.map((updatedCollection) {
+      final List<HospitalItem> hospitals = [];
+      updatedCollection.docs.forEach((element) {
+        final dbItem = element.data()! as Map<String, dynamic>;
+        final hospital = HospitalItem(
+          dbItem['name'],
+          dbItem['address'],
+          dbItem['latitude'],
+          dbItem['longitude'],
+        );
+        hospitals.add(hospital);
+      });
+      return hospitals;
+    });
   }
 }
 

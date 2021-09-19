@@ -21,26 +21,13 @@ class _HospitalMainScreenState extends State<HospitalMainScreen> {
         centerTitle: true,
         title: Text('Hospital'),
       ),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
+      body: StreamBuilder<List<HospitalItem>>(
           stream: HospitalService().getHospital(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              final List<HospitalItem> hospitals = [];
-
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final hospital = HospitalItem(
-                  dbItem['name'],
-                  dbItem['address'],
-                  double.parse("${dbItem['latitude']}"),
-                  double.parse("${dbItem['longitude']}"),
-                );
-                hospitals.add(hospital);
-              });
-
+              final hospitals = snapshot.requireData;
               return HospitalListContent(hospitals: hospitals);
             } else {
               return Container();
@@ -115,6 +102,7 @@ class _HospitalListContentState extends State<HospitalListContent> {
       ],
     );
   }
+
   void navigateTo(double lat, double lng) async {
     var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
     if (await canLaunch(uri.toString())) {
