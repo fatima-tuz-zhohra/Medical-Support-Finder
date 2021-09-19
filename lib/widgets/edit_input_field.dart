@@ -5,12 +5,10 @@ class EditInputField extends StatelessWidget {
     Key? key,
     required this.hintText,
     required this.controller,
-    this.validator,
   }) : super(key: key);
 
   String hintText;
   TextEditingController controller;
-  String? Function(String? value)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +23,7 @@ class EditInputField extends StatelessWidget {
         ),
         Positioned(
           right: 12,
+            bottom: 12,
             child: Icon(
               Icons.edit,
               color: Theme.of(context).colorScheme.primary,

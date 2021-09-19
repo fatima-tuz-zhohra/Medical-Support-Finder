@@ -35,9 +35,10 @@ class SearchView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
+                          //keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             filled: true,
-                            hintText: 'For Search ',
+                            labelText: 'For Search ',
                             border: InputBorder.none,
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.w600,

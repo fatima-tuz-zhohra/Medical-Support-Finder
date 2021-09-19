@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:msf/widgets/horizontal_listView1.dart';
-import 'package:msf/widgets/horizontal_list_view2.dart';
+import 'package:msf/widgets/horizontal_list_view_small.dart';
+import 'package:msf/widgets/horizontal_list_view_big.dart';
 import 'package:msf/widgets/search_view.dart';
 
 class DoctorMainScreen extends StatefulWidget {
@@ -44,7 +44,7 @@ class _DoctorMainScreenState extends State<DoctorMainScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              HorizontalListView1(),
+              HorizontalListViewSmall(),
               const SizedBox(height: 20),
               Text(
                 "Doctors",
@@ -53,7 +53,7 @@ class _DoctorMainScreenState extends State<DoctorMainScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              HorizontalListView2(),
+              HorizontalListViewBig(),
             ],
           ),
         ),

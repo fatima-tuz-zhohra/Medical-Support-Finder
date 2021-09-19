@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HorizontalListView1 extends StatelessWidget {
-  const HorizontalListView1({Key? key}) : super(key: key);
+class HorizontalListViewSmall extends StatelessWidget {
+  const HorizontalListViewSmall({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

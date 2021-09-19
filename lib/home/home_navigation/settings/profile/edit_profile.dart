@@ -33,14 +33,14 @@ class EditProfile extends StatelessWidget {
                 controller: nameController,
               ),
               SizedBox(
-                height: 16,
+                height: 12,
               ),
               EditInputField(
                 hintText: 'address',
                 controller: addressController,
               ),
               SizedBox(
-                height: 16,
+                height: 12,
               ),
               EditInputField(
                 hintText: 'phoneNo',

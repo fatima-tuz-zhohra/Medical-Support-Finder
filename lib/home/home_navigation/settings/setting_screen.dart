@@ -10,57 +10,73 @@ class SettingScreen extends StatefulWidget {
   _SettingScreenState createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _SettingScreenState extends State<SettingScreen> with TickerProviderStateMixin {
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 600), vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+            title: Text('Setting')
+        ),
+        body: mainBody(),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ListTile(
-                leading: Icon(Icons.add_alert),
-                title: Text('Receive Notification'),
-                trailing: Switch(
-                  value: true,
-                  onChanged: (bool value) {},
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.info_outline),
-                title: Text('Help & Support'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {},
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.privacy_tip_outlined),
-                title: Text('Privacy Policy'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {},
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.content_paste_outlined),
-                title: Text('Terms & Conditions'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {},
-                ),
-              ),
+    );
+  }
 
-              SizedBox(height: 40),
-              RoundedButton(text: 'LogOut', press: _signOut),
-            ],
+  Widget mainBody(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        ListTile(
+          leading: Icon(Icons.add_alert),
+          title: Text('Receive Notification'),
+          trailing: Switch(
+            value: true,
+            onChanged: (bool value) {},
           ),
         ),
-      ),
+        ListTile(
+          leading: Icon(Icons.info_outline),
+          title: Text('Help & Support'),
+          trailing: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios),
+            onPressed: () {},
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.privacy_tip_outlined),
+          title: Text('Privacy Policy'),
+          trailing: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios),
+            onPressed: () {},
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.content_paste_outlined),
+          title: Text('Terms & Conditions'),
+          trailing: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios),
+            onPressed: () {},
+          ),
+        ),
+        SizedBox(height: 40),
+        RoundedButton(text: 'LogOut', press: _signOut),
+      ],
     );
   }
 
