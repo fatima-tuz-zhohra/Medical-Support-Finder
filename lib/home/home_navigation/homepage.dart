@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 12),
                 HomeCategory(),
 
-                SizedBox(height: 20),
+                SizedBox(height: 24),
                 Text('NearBy Hospital For You', style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),),
                 SizedBox(height: 8),
                 HorizontalHospitalListView(),

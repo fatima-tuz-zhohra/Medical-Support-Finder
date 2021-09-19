@@ -3,6 +3,7 @@ class HospitalItem {
   String address;
   double latitude;
   double longitude;
+  double? distance;
 
   HospitalItem(
     this.name,
