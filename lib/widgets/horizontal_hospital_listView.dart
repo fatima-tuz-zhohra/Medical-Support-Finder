@@ -11,41 +11,39 @@ class HorizontalHospitalListView extends StatelessWidget {
     final theme = Theme.of(context);
     final displaySize = MediaQuery.of(context).size;
 
-    return
-      Container(
-        height: 150,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: hospitals.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: Container(
-                width: displaySize.width * .8,
-                child: ListTile(
-                  title: Text('name'),
-                  subtitle: Text('address'),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: theme.colorScheme.primary,
-                      ),
-                      SizedBox(height: 4),
-                      Icon(
-                        Icons.call,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ],
-                  ),
+    return Container(
+      height: 150,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: hospitals.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: Container(
+              width: displaySize.width * .8,
+              child: ListTile(
+                title: Text('name'),
+                subtitle: Text('address'),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: theme.colorScheme.primary,
+                    ),
+                    SizedBox(height: 4),
+                    Icon(
+                      Icons.call,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-          separatorBuilder: (BuildContext context,
-              int index) => const Divider(),
-        ),
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+      ),
     );
   }
 
