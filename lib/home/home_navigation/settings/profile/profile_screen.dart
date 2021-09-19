@@ -31,8 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: FutureBuilder<Profile>(
-            future: DatabaseService(uid: firebaseUser?.uid ?? '').getUserData(),
+          child: StreamBuilder<Profile>(
+            stream: DatabaseService(uid: firebaseUser?.uid ?? '').getUserDataStream(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());

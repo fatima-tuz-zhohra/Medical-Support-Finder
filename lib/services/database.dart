@@ -64,6 +64,25 @@ class DatabaseService {
     );
     return profile;
   }
+
+  Stream<Profile> getUserDataStream() {
+    final stream = usersCollection.doc(uid).snapshots();
+
+    return stream.map((updatedDoc) {
+      final data = updatedDoc.data() as Map<String, dynamic>;
+      final profile = Profile(
+        data['name'],
+        data['email'],
+        data['phoneNo'],
+        data['role'],
+        data['image'],
+        isBloodDonor: data['isBloodDonor'] ?? false,
+        bloodGroup: data['bloodGroup'],
+        address: data['address'],
+      );
+      return profile;
+    });
+  }
 }
 
 class MedicineService {
