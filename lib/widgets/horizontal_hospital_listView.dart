@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart';
+//import 'package:location/location.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';

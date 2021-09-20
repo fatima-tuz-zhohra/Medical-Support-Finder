@@ -19,7 +19,7 @@ class EditProfile extends StatelessWidget {
     final databaseService = DatabaseService(uid: firebaseUser.uid);
 
     return Scaffold(
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: FutureBuilder<Profile>(
@@ -48,6 +48,7 @@ class EditProfile extends StatelessWidget {
 
     return Column(
       children: [
+        SizedBox(height: 12,),
         Center(
           child: Text("Edit Profile",
               style: Theme.of(context)
