@@ -41,10 +41,9 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
                   double.parse("${dbItem['latitude']}"),
                   double.parse("${dbItem['longitude']}"),
                 );
-
                 bloodBanks.add(bloodBank);
               });
-              return BloodListContent(bloodBanks: bloodBanks);
+              return BloodBankListContent(bloodBanks: bloodBanks);
             } else {
               return Container();
             }
@@ -53,16 +52,16 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
   }
 }
 
-class BloodListContent extends StatefulWidget {
-  const BloodListContent({Key? key, required this.bloodBanks})
+class BloodBankListContent extends StatefulWidget {
+  const BloodBankListContent({Key? key, required this.bloodBanks})
       : super(key: key);
   final List<BloodBankItem> bloodBanks;
 
   @override
-  _BloodListContentState createState() => _BloodListContentState();
+  _BloodBankListContentState createState() => _BloodBankListContentState();
 }
 
-class _BloodListContentState extends State<BloodListContent> {
+class _BloodBankListContentState extends State<BloodBankListContent> {
   List<BloodBankItem> bloodBanks = [];
   String searchKey = "";
 

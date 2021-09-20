@@ -1,6 +1,6 @@
 import 'authentication/login/loginPage.dart';
 import 'authentication/splash/splash.dart';
-import 'home/home_main/homepage.dart';
+import 'home/home_navigation/homepage.dart';
 
 final appRoutes = {
   SplashPage.PATH : (context) => SplashPage(),

@@ -13,9 +13,13 @@ class GridItemView extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 100,
-        height: 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(40.0),
+            bottomLeft: Radius.circular(8.0),
+            bottomRight: Radius.circular(8.0),
+          ),
           color: Color(0xff80cbc4),
         ),
         child: Column(
