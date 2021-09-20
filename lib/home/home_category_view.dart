@@ -11,62 +11,58 @@ class HomeCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        childAspectRatio: 2,
+    return Container(
+      height: 150,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        children: [
+          GridItemView(
+            title: 'Medicine',
+            image: 'assets/images/medicine.png',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MedicineMainScreen();
+              }));
+            },
+          ),
+          GridItemView(
+            title: 'Hospital',
+            image: 'assets/images/hospital2.png',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return HospitalMainScreen();
+              }));
+            },
+          ),
+          GridItemView(
+            title: 'Doctor',
+            image: 'assets/images/heart_shape.png',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DoctorMainScreen();
+              }));
+            },
+          ),
+          GridItemView(
+            title: 'Blood Donors',
+            image: 'assets/images/blood1.png',
+            onTap: () {
+              Navigator.pushNamed(context, BloodDonorsScreen.PATH);
+            },
+          ),
+          GridItemView(
+            title: 'Oxygen',
+            image: 'assets/images/oxygen.png',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return OxygenMainScreen();
+              }));
+            },
+          ),
+        ],
       ),
-      scrollDirection: Axis.vertical,
-      children: [
-        GridItemView(
-          title: 'Medicine',
-          image: 'assets/images/medicine.png',
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return MedicineMainScreen();
-            }));
-          },
-        ),
-        GridItemView(
-          title: 'Hospital',
-          image: 'assets/images/hospital2.png',
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return HospitalMainScreen();
-            }));
-          },
-        ),
-        GridItemView(
-          title: 'Doctor',
-          image: 'assets/images/heart_shape.png',
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DoctorMainScreen();
-            }));
-          },
-        ),
-        GridItemView(
-          title: 'Blood Donors',
-          image: 'assets/images/blood1.png',
-          onTap: () {
-            Navigator.pushNamed(context, BloodDonorsScreen.PATH);
-          },
-        ),
-        GridItemView(
-          title: 'Oxygen',
-          image: 'assets/images/oxygen.png',
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return OxygenMainScreen();
-            }));
-          },
-        ),
-      ],
     );
   }
 }
