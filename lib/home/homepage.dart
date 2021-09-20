@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:msf/category/blood/bloodBank_screen.dart';
 import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
-import 'package:msf/home/horizontal_hospital_listView.dart';
+import 'package:msf/home/nearby_hospitals_view.dart';
+import 'package:msf/home/top_blood_banks_view.dart';
 
 import 'home_category_view.dart';
 
@@ -28,6 +30,8 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ..._buildAllCategories(context),
+                SizedBox(height: 24),
+                ..._buildTopBloodBanks(context),
                 SizedBox(height: 24),
                 ..._buildNearbyHospitals(context),
               ],
@@ -75,6 +79,30 @@ class _HomePageState extends State<HomePage> {
       ),
       SizedBox(height: 8),
       HorizontalHospitalListView(),
+    ];
+  }
+
+  List<Widget> _buildTopBloodBanks(BuildContext context) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Top Blood Banks',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, BloodBankScreen.PATH);
+              },
+              child: Text('View All'))
+        ],
+      ),
+      SizedBox(height: 8),
+      TopBloodBanksListView(),
     ];
   }
 }
