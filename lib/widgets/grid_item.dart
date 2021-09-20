@@ -34,12 +34,7 @@ class GridItemView extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               title,
-              style: TextStyle(
-                fontFamily: 'Italy',
-                fontWeight: FontWeight.bold,
-                color: Colors.black54,
-                fontSize: 16,
-              ),
+              style: Theme.of(context).textTheme.subtitle1,
             )
           ],
         ),

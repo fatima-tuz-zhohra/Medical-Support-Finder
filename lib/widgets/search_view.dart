@@ -29,7 +29,6 @@ class SearchView extends StatelessWidget {
                       child: TextFormField(
                         onChanged: onTextChange,
                         style: TextStyle(
-                          fontFamily: 'WorkSans',
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
