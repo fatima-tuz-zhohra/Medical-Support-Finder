@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:msf/category/blood/blood_main_screen.dart';
+import 'package:msf/category/blood/bloodDonor_screen.dart';
 import 'package:msf/category/doctor/doctor_main_screen.dart';
 import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/category/medicine/medicine_main_screen.dart';
@@ -51,12 +51,10 @@ class HomeCategoryView extends StatelessWidget {
           },
         ),
         GridItemView(
-          title: 'Blood',
+          title: 'Blood Donors',
           image: 'assets/images/blood1.png',
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return BloodMainScreen();
-            }));
+            Navigator.pushNamed(context, BloodDonorsScreen.PATH);
           },
         ),
         GridItemView(

@@ -6,6 +6,7 @@ import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BloodDonorsScreen extends StatefulWidget {
+  static const PATH = "/blood-donors";
   const BloodDonorsScreen({Key? key}) : super(key: key);
 
   @override
