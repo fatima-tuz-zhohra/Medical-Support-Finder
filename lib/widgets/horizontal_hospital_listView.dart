@@ -1,15 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-//import 'package:location/location.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HorizontalHospitalListView extends StatelessWidget {
   HorizontalHospitalListView({Key? key}) : super(key: key);
-
-  final List<String> hospitals = <String>['A', 'B', 'C', 'D'];
 
   @override
   Widget build(BuildContext context) {
@@ -57,26 +53,17 @@ class HorizontalHospitalListView extends StatelessWidget {
       final hospital = allHospitals[i];
       final distance = Geolocator.distanceBetween(currentLocation.latitude,
           currentLocation.longitude, hospital.latitude, hospital.longitude);
-      if(distance <= 5000){
-        hospital.distance = distance/1000;
+      if (distance <= 5000) {
+        hospital.distance = distance / 1000;
         nearby.add(hospital);
       }
     }
-
     return nearby;
   }
 
-  void navigateTo(double lat, double lng) async {
-    var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
-    } else {
-      throw 'Could not launch ${uri.toString()}';
-    }
-  }
-
   Widget _buildListView(BuildContext context, List<HospitalItem> hospitals) {
-    if(hospitals.isEmpty) return Center(child: Text('No nearby hospital found!'));
+    if (hospitals.isEmpty)
+      return Center(child: Text('No nearby hospital found!'));
 
     final theme = Theme.of(context);
     final displaySize = MediaQuery.of(context).size;
@@ -86,23 +73,38 @@ class HorizontalHospitalListView extends StatelessWidget {
       itemCount: hospitals.length,
       itemBuilder: (BuildContext context, int index) {
         return Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Container(
             width: displaySize.width * .8,
             child: ListTile(
               title: Text('${hospitals[index].name}'),
-              subtitle: Text('${hospitals[index].address}\n\n${hospitals[index].distance?.toStringAsFixed(2)} KM.'),
+              subtitle: Text('${hospitals[index].address}\n'
+                  '\n${hospitals[index].type}'
+                  '\n\n${hospitals[index].distance?.toStringAsFixed(2)} KM.'),
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(
-                    Icons.location_on,
-                    color: theme.colorScheme.primary,
+                  InkWell(
+                    child: Icon(
+                      Icons.location_on,
+                      color: theme.colorScheme.primary,
+                    ),
+                    onTap: () {
+                      navigateTo(hospitals[index].latitude,
+                          hospitals[index].longitude);
+                    },
                   ),
                   SizedBox(height: 4),
-                  Icon(
-                    Icons.call,
-                    color: theme.colorScheme.primary,
+                  InkWell(
+                    child: Icon(
+                      Icons.call,
+                      color: theme.colorScheme.primary,
+                    ),
+                    onTap: () {
+                      launch(('tel://${hospitals[index].phoneNo}'));
+                    },
                   ),
                 ],
               ),
@@ -112,6 +114,15 @@ class HorizontalHospitalListView extends StatelessWidget {
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
+  }
+
+  void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("http://maps.google.com/maps?daddr=$lat,$lng");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
   }
 
   Future<Position> _determinePosition() async {

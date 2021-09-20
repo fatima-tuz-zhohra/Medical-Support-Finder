@@ -114,6 +114,7 @@ class HospitalService {
           dbItem['address'],
           dbItem['latitude'],
           dbItem['longitude'],
+          dbItem['type'],
         );
         hospitals.add(hospital);
       });
