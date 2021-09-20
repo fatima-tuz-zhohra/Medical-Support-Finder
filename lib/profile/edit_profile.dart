@@ -19,21 +19,23 @@ class EditProfile extends StatelessWidget {
     final databaseService = DatabaseService(uid: firebaseUser.uid);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: FutureBuilder<Profile>(
-            future: databaseService.getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                final profile = snapshot.requireData;
-                return _buildBody(context, profile, databaseService);
-              } else {
-                return Container();
-              }
-            },
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: FutureBuilder<Profile>(
+              future: databaseService.getUserData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasData) {
+                  final profile = snapshot.requireData;
+                  return _buildBody(context, profile, databaseService);
+                } else {
+                  return Container();
+                }
+              },
+            ),
           ),
         ),
       ),

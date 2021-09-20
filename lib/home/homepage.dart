@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
 import 'package:msf/home/horizontal_hospital_listView.dart';
 
@@ -55,12 +56,22 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _buildNearbyHospitals(BuildContext context) {
     return [
-      Text(
-        'Nearby Hospitals',
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(fontWeight: FontWeight.bold),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Nearby Hospitals',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, HospitalMainScreen.PATH);
+              },
+              child: Text('View All'))
+        ],
       ),
       SizedBox(height: 8),
       HorizontalHospitalListView(),

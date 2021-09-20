@@ -6,6 +6,8 @@ import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HospitalMainScreen extends StatefulWidget {
+  static const PATH = "/hospitals";
+
   const HospitalMainScreen({Key? key}) : super(key: key);
 
   @override
