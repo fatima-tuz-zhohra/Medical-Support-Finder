@@ -81,7 +81,7 @@ class HorizontalHospitalListView extends StatelessWidget {
               title: Text('${hospitals[index].name}'),
               subtitle: Text('${hospitals[index].address}\n'
                   '\n${hospitals[index].type}'
-                  '\n\n${hospitals[index].distance?.toStringAsFixed(2)} KM.'),
+                  '\n\n${hospitals[index].distance?.toStringAsFixed(2)} KM Faraway.'),
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,

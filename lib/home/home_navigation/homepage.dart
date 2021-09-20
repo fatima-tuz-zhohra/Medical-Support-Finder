@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SizedBox(height: 12),
                 Text(
-                  'Home',
+                  'Category',
                   style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 12),

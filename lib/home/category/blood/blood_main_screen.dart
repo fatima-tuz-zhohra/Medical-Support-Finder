@@ -29,14 +29,14 @@ class _BloodMainScreenState extends State<BloodMainScreen> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Text(
-                'Here Is Everything',
+              /*child: Text(
+                'Here Is Your Needable item',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontFamily: 'Poppins',
                     fontSize: 20),
-              ),
+              ),*/
             ),
             Expanded(
                 child: Padding(
