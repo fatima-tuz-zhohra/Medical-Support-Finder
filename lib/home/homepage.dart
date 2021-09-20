@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
-import 'package:msf/widgets/horizontal_hospital_listView.dart';
+import 'package:msf/home/horizontal_hospital_listView.dart';
 
 import 'home_category_view.dart';
 

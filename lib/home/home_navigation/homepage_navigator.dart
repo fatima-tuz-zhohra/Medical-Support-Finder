@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:msf/home/home_navigation/settings/profile/profile_screen.dart';
-import 'package:msf/home/home_navigation/settings/setting_screen.dart';
+import 'package:msf/profile/profile_screen.dart';
+import 'package:msf/settings/setting_screen.dart';
 
 import 'chat.dart';
 

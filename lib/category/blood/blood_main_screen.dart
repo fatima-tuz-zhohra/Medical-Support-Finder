@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:msf/home/category/blood/bloodBank_screen.dart';
-import 'package:msf/home/category/blood/bloodDonor_screen.dart';
 import 'package:msf/widgets/grid_item.dart';
+
+import 'bloodBank_screen.dart';
+import 'bloodDonor_screen.dart';
 
 class BloodMainScreen extends StatefulWidget {
   const BloodMainScreen({Key? key}) : super(key: key);

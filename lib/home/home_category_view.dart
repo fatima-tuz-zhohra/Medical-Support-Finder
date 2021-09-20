@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:msf/home/category/blood/blood_main_screen.dart';
-import 'package:msf/home/category/doctor/doctor_main_screen.dart';
-import 'package:msf/home/category/hospital/hospital_main_screen.dart';
-import 'package:msf/home/category/medicine/medicine_main_screen.dart';
-import 'package:msf/home/category/oxygen/oxygen_main_screen.dart';
+import 'package:msf/category/blood/blood_main_screen.dart';
+import 'package:msf/category/doctor/doctor_main_screen.dart';
+import 'package:msf/category/hospital/hospital_main_screen.dart';
+import 'package:msf/category/medicine/medicine_main_screen.dart';
+import 'package:msf/category/oxygen/oxygen_main_screen.dart';
 import 'package:msf/widgets/grid_item.dart';
 
 class HomeCategoryView extends StatelessWidget {

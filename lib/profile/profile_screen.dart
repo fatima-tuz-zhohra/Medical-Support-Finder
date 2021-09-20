@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
-import 'package:msf/home/home_navigation/settings/profile/edit_profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/back_button.dart';
 import 'package:msf/widgets/single_input_dialog.dart';
+
+import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

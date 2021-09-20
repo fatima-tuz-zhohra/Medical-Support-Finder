@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/medicine_item.dart';
-import 'package:msf/home/category/medicine/medicine_details.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/search_view.dart';
+
+import 'medicine_details.dart';
 
 class MedicineMainScreen extends StatefulWidget {
   const MedicineMainScreen({Key? key}) : super(key: key);
