@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:msf/data/model/item/bloodBank_item.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/data/model/profile.dart';
 
@@ -129,8 +130,23 @@ class BloodBankService {
   final CollectionReference bloodBankCollection =
       FirebaseFirestore.instance.collection('Blood Bank');
 
-  Stream<QuerySnapshot<Object?>> getBloodBank() {
-    return bloodBankCollection.snapshots();
+  Stream<List<BloodBankItem>> getBloodBank() {
+    final stream = bloodBankCollection.snapshots();
+    return stream.map((updatedCollection) {
+      final List<BloodBankItem> bloodBanks = [];
+      updatedCollection.docs.forEach((element) {
+        final dbItem = element.data()! as Map<String, dynamic>;
+        final bloodBank = BloodBankItem(
+          dbItem['name'],
+          dbItem['address'],
+          dbItem['phoneNo'],
+          dbItem['latitude'],
+          dbItem['longitude'],
+        );
+        bloodBanks.add(bloodBank);
+      });
+      return bloodBanks;
+    });
   }
 }
 

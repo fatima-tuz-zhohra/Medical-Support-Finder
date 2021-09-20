@@ -20,8 +20,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
         centerTitle: true,
         title: Text('Blood Bank'),
       ),
-
-      body: StreamBuilder<QuerySnapshot<Object?>>(
+      body: StreamBuilder<List<BloodBankItem>>(
           stream: BloodBankService().getBloodBank(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,20 +28,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              final List<BloodBankItem> bloodBanks = [];
-
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final bloodBank = BloodBankItem(
-                  dbItem['name'],
-                  dbItem['address'],
-                  dbItem['phoneNo'],
-                  double.parse("${dbItem['latitude']}"),
-                  double.parse("${dbItem['longitude']}"),
-                );
-                bloodBanks.add(bloodBank);
-              });
+              final bloodBanks = snapshot.requireData;
               return BloodBankListContent(bloodBanks: bloodBanks);
             } else {
               return Container();
@@ -81,9 +67,7 @@ class _BloodBankListContentState extends State<BloodBankListContent> {
           List<BloodBankItem> filtered = [];
           widget.bloodBanks.forEach((element) {
             if (element.name != null &&
-                element.name!
-                    .toLowerCase()
-                    .startsWith(text.toLowerCase())) {
+                element.name!.toLowerCase().startsWith(text.toLowerCase())) {
               filtered.add(element);
             }
           });
