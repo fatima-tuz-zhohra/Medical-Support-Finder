@@ -26,18 +26,9 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 12),
-                Text(
-                  'Category',
-                  style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 12),
-                HomeCategoryView(),
-
+                ..._buildAllCategories(context),
                 SizedBox(height: 24),
-                Text('NearBy Hospital For You', style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),),
-                SizedBox(height: 8),
-                HorizontalHospitalListView(),
+                ..._buildNearbyHospitals(context),
               ],
             ),
           ),
@@ -45,5 +36,34 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: HomepageNavigator(),
     );
+  }
+
+  List<Widget> _buildAllCategories(BuildContext context) {
+    return [
+      SizedBox(height: 12),
+      Text(
+        'Category',
+        style: Theme.of(context)
+            .textTheme
+            .headline6
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 12),
+      HomeCategoryView()
+    ];
+  }
+
+  List<Widget> _buildNearbyHospitals(BuildContext context) {
+    return [
+      Text(
+        'NearBy Hospital For You',
+        style: Theme.of(context)
+            .textTheme
+            .headline6
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 8),
+      HorizontalHospitalListView(),
+    ];
   }
 }
