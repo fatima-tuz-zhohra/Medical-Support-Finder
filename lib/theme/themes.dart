@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final lightColorScheme = ColorScheme.light(
   primary: Color(0xff009688),
@@ -15,5 +16,8 @@ final lightColorScheme = ColorScheme.light(
 
 //final darkColorScheme = ColorScheme.dark();
 
-final lightTheme = ThemeData.from(colorScheme: lightColorScheme);
+final lightTheme = ThemeData.from(
+  colorScheme: lightColorScheme,
+  textTheme: GoogleFonts.montserratTextTheme(),
+);
 //final darkTheme = ThemeData.from(colorScheme: darkColorScheme);

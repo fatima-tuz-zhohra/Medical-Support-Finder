@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _buildNearbyHospitals(BuildContext context) {
     return [
       Text(
-        'NearBy Hospital For You',
+        'Nearby Hospitals',
         style: Theme.of(context)
             .textTheme
             .headline6
