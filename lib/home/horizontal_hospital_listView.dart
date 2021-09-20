@@ -19,29 +19,34 @@ class HorizontalHospitalListView extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else if (snapshot.hasData) {
-            final currentLocation = snapshot.requireData;
-            print('Current Location $currentLocation');
-
-            final dbService = HospitalService();
-            return StreamBuilder<List<HospitalItem>>(
-                stream: dbService.getHospital(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasData) {
-                    final hospitals =
-                        _filterNearby(snapshot.requireData, currentLocation);
-                    return _buildListView(context, hospitals);
-                  } else {
-                    return Container();
-                  }
-                });
+            final position = snapshot.requireData;
+            return _buildMainContent(position);
           } else {
             return Container();
           }
         },
       ),
     );
+  }
+
+  Widget _buildMainContent(Position position) {
+    final currentLocation = position;
+    print('Current Location $currentLocation');
+
+    final dbService = HospitalService();
+    return StreamBuilder<List<HospitalItem>>(
+        stream: dbService.getHospital(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData) {
+            final hospitals =
+                _filterNearby(snapshot.requireData, currentLocation);
+            return _buildListView(context, hospitals);
+          } else {
+            return Container();
+          }
+        });
   }
 
   List<HospitalItem> _filterNearby(
@@ -58,6 +63,7 @@ class HorizontalHospitalListView extends StatelessWidget {
         nearby.add(hospital);
       }
     }
+    nearby.sort((i1, i2) => i1.distance?.compareTo(i2.distance ?? 0) ?? 0);
     return nearby;
   }
 
@@ -72,16 +78,62 @@ class HorizontalHospitalListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: hospitals.length,
       itemBuilder: (BuildContext context, int index) {
+        Color color = Colors.white;
+        final textTheme = Theme.of(context).primaryTextTheme;
+
+        if (index % 3 == 0) {
+          color = Colors.teal.shade500;
+        } else if (index % 3 == 1) {
+          color = Colors.brown.shade400;
+        } else if (index % 3 == 2) {
+          color = Colors.blueGrey.shade500;
+        }
+
         return Card(
+          color: color,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Container(
+            padding: EdgeInsets.symmetric(vertical: 12),
             width: displaySize.width * .8,
             child: ListTile(
-              title: Text('${hospitals[index].name}'),
-              subtitle: Text('${hospitals[index].address}\n'
-                  '\n${hospitals[index].type}'
-                  '\n\n${hospitals[index].distance?.toStringAsFixed(2)} KM Faraway.'),
+              isThreeLine: true,
+              title: Text(
+                '${hospitals[index].name}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.subtitle1
+                    ?.copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 4),
+                  Text(
+                    '${hospitals[index].address}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.subtitle1?.copyWith(fontSize: 14),
+                  ),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Chip(
+                        label: Text('${hospitals[index].type}'),
+                        labelStyle:
+                            TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                      SizedBox(width: 4),
+                      Chip(
+                        label: Text(
+                            '${hospitals[index].distance?.toStringAsFixed(2)} Km'),
+                        labelStyle:
+                            TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
@@ -89,7 +141,7 @@ class HorizontalHospitalListView extends StatelessWidget {
                   InkWell(
                     child: Icon(
                       Icons.location_on,
-                      color: theme.colorScheme.primary,
+                      color: theme.colorScheme.onPrimary,
                     ),
                     onTap: () {
                       navigateTo(hospitals[index].latitude,
@@ -100,7 +152,7 @@ class HorizontalHospitalListView extends StatelessWidget {
                   InkWell(
                     child: Icon(
                       Icons.call,
-                      color: theme.colorScheme.primary,
+                      color: theme.colorScheme.onPrimary,
                     ),
                     onTap: () {
                       launch(('tel://${hospitals[index].phoneNo}'));
