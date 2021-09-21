@@ -57,7 +57,7 @@ class HomeCategoryView extends StatelessWidget {
             image: 'assets/images/oxygen.png',
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return OxygenMainScreen();
+                return OxygenSupplierScreen();
               }));
             },
           ),

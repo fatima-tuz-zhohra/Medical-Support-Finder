@@ -56,6 +56,7 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
     );
   }
 }
+
 class MedicineListContent extends StatefulWidget {
   const MedicineListContent({Key? key, required this.medicines})
       : super(key: key);
