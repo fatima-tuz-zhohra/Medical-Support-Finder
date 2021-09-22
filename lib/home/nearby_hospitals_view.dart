@@ -175,6 +175,8 @@ class HorizontalHospitalListView extends StatelessWidget {
     } else {
       throw 'Could not launch ${uri.toString()}';
     }
+
+    print('Navigating to $uri');
   }
 
   Future<Position> _determinePosition() async {

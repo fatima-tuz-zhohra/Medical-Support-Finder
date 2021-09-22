@@ -107,7 +107,7 @@ class _MedicineListContentState extends State<MedicineListContent>{
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(Icons.medical_services),
+                      child: Image.asset('assets/icons/medicine_icon3.png'),
                     ),
                     title: Text('${medicines[index].name}'),
                     subtitle: Text('${medicines[index].generic}'),
