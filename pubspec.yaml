@@ -78,6 +78,8 @@ flutter:
    - assets/images/logo.jpeg
    - assets/icons/blood_icon_profile.png
    - assets/icons/medicine_icon3.png
+   - assets/images/generic_medicine_details_image.PNG
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

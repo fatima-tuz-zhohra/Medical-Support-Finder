@@ -48,7 +48,7 @@ class EditProfileScreen extends StatelessWidget {
       BuildContext context, Profile profile, DatabaseService databaseService) {
     nameController.text = profile.name;
     addressController.text = profile.address ?? '';
-    phoneNoController.text = profile.phoneNo ?? '';
+    phoneNoController.text = profile.phoneNo;
 
     return Column(
       children: [
