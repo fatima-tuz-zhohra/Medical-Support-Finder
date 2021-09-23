@@ -40,6 +40,7 @@ class GridItemView extends StatelessWidget {
               ),
               Text(
                 title,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.subtitle1,
               )
             ],

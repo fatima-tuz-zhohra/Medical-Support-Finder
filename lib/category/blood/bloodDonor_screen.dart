@@ -19,11 +19,11 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('New Request'),
         onPressed: () {
           Navigator.pushNamed(context, BloodRequestScreen.PATH);
         },
-        child: Icon(Icons.post_add_rounded),
       ),
       appBar: AppBar(
         centerTitle: true,

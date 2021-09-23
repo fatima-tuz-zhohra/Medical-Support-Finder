@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 final lightColorScheme = ColorScheme.light(
   primary: Color(0xff009688),
-  secondary: Color(0xff80cbc4),
+  secondary: Color(0xffff9800),
   surface: Colors.white,
   background: Colors.white,
   error: Color(0xffb00020),

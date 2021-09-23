@@ -87,15 +87,6 @@ class DatabaseService {
       return profile;
     });
   }
-
-  sendBloodRequestData() {
-    /*final data = bloodRequest.data() as Map<String, dynamic>;
-    final bloodRequest = BloodRequest(
-        data['bloodGroup'],
-        data['phoneNo'],
-        data['description'],
-    );*/
-  }
 }
 
 class MedicineService {
