@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class BloodDonorsScreen extends StatefulWidget {
   static const PATH = "/blood-donors";
+
   const BloodDonorsScreen({Key? key}) : super(key: key);
 
   @override
@@ -21,10 +22,9 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) {
-                return BloodRequestScreen();
-              }));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return BloodRequestScreen();
+          }));
         },
         child: Icon(Icons.post_add_rounded),
       ),
@@ -32,25 +32,13 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
         centerTitle: true,
         title: Text('Blood Donors'),
       ),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
+      body: StreamBuilder<List<BloodDonorsItem>>(
           stream: BloodDonorService().getBloodDonor(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                height: 44,
-                width: 44,
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              final List<BloodDonorsItem> bloodDonors = [];
-
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final bloodDonor = BloodDonorsItem(dbItem['name'],
-                    dbItem['address'], dbItem['bloodGroup'], dbItem['phoneNo']);
-                bloodDonors.add(bloodDonor);
-              });
+              final List<BloodDonorsItem> bloodDonors = snapshot.requireData;
               return BloodDonorListContent(bloodDonors: bloodDonors);
             } else {
               return Container();
@@ -87,8 +75,8 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
 
           List<BloodDonorsItem> filtered = [];
           widget.bloodDonors.forEach((element) {
-            if (element.name != null &&
-                element.name!.toLowerCase().startsWith(text.toLowerCase())) {
+            if (element.bloodGroup != null &&
+                element.bloodGroup!.toLowerCase().startsWith(text.toLowerCase())) {
               filtered.add(element);
             }
           });

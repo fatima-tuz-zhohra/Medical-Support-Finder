@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:msf/data/model/blood_request.dart';
 import 'package:msf/data/model/item/bloodBank_item.dart';
+import 'package:msf/data/model/item/bloodDoners_item.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/data/model/profile.dart';
 
@@ -95,7 +96,6 @@ class DatabaseService {
         data['description'],
     );*/
   }
-
 }
 
 class MedicineService {
@@ -187,8 +187,22 @@ class BloodDonorService {
     return await bloodDonorCollection.doc(uid).delete();
   }
 
-  Stream<QuerySnapshot<Object?>> getBloodDonor() {
-    return bloodDonorCollection.snapshots();
+  Stream<List<BloodDonorsItem>> getBloodDonor() {
+    final stream = bloodDonorCollection.snapshots();
+    return stream.map((updatedCollection) {
+      final List<BloodDonorsItem> bloodDonors = [];
+      updatedCollection.docs.forEach((element) {
+        final dbItem = element.data()! as Map<String, dynamic>;
+        final bloodDonor = BloodDonorsItem(
+          dbItem['name'],
+          dbItem['address'],
+          dbItem['bloodGroup'],
+          dbItem['phoneNo'],
+        );
+        bloodDonors.add(bloodDonor);
+      });
+      return bloodDonors;
+    });
   }
 }
 
@@ -196,7 +210,7 @@ class OxygenService {
   OxygenService();
 
   final CollectionReference oxygenCollection =
-  FirebaseFirestore.instance.collection('Oxygen_Supplier');
+      FirebaseFirestore.instance.collection('Oxygen_Supplier');
 
   Stream<QuerySnapshot<Object?>> getOxygen() {
     return oxygenCollection.snapshots();
