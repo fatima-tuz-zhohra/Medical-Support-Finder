@@ -11,7 +11,7 @@ class SearchView extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       height: 64,
-      width: size.width * 0.9,
+      width: size.width * 0.95,
       child: TextFormField(
         onChanged: onTextChange,
         keyboardType: TextInputType.text,
@@ -19,6 +19,7 @@ class SearchView extends StatelessWidget {
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.search),
             filled: true,
+            fillColor: Colors.white,
             hintText: 'Search...',
             border: InputBorder.none),
         //onEditingComplete: () {},
