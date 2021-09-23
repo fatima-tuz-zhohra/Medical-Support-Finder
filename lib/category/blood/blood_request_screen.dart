@@ -6,6 +6,7 @@ import 'package:msf/widgets/edit_input_field.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class BloodRequestScreen extends StatelessWidget {
+  static const PATH = "/blood-request";
    BloodRequestScreen({Key? key}) : super(key: key);
 
   final bloodGroupController = TextEditingController();

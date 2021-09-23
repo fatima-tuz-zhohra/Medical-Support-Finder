@@ -18,13 +18,10 @@ class BloodDonorsScreen extends StatefulWidget {
 class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return BloodRequestScreen();
-          }));
+          Navigator.pushNamed(context, BloodRequestScreen.PATH);
         },
         child: Icon(Icons.post_add_rounded),
       ),
@@ -76,7 +73,9 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
           List<BloodDonorsItem> filtered = [];
           widget.bloodDonors.forEach((element) {
             if (element.bloodGroup != null &&
-                element.bloodGroup!.toLowerCase().startsWith(text.toLowerCase())) {
+                element.bloodGroup!
+                    .toLowerCase()
+                    .startsWith(text.toLowerCase())) {
               filtered.add(element);
             }
           });
