@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:msf/category/blood/blood_request_screen.dart';
 import 'package:msf/data/model/item/bloodDoners_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/search_view.dart';
@@ -18,6 +19,15 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return BloodRequestScreen();
+              }));
+        },
+        child: Icon(Icons.post_add_rounded),
+      ),
       appBar: AppBar(
         centerTitle: true,
         title: Text('Blood Donors'),

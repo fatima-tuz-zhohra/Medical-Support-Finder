@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:msf/data/model/blood_request.dart';
 import 'package:msf/data/model/item/bloodBank_item.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/data/model/profile.dart';
@@ -85,6 +86,16 @@ class DatabaseService {
       return profile;
     });
   }
+
+  sendBloodRequestData() {
+    /*final data = bloodRequest.data() as Map<String, dynamic>;
+    final bloodRequest = BloodRequest(
+        data['bloodGroup'],
+        data['phoneNo'],
+        data['description'],
+    );*/
+  }
+
 }
 
 class MedicineService {

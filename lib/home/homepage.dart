@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:msf/category/blood/all_blood_request.dart';
 import 'package:msf/category/blood/bloodBank_screen.dart';
+import 'package:msf/category/blood/my_blood_request.dart';
 import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
 import 'package:msf/home/nearby_hospitals_view.dart';
@@ -31,6 +33,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ..._buildAllCategories(context),
                 SizedBox(height: 24),
+                ..._buildMyBloodRequest(context),
+                SizedBox(height: 24),
                 ..._buildTopBloodBanks(context),
                 SizedBox(height: 24),
                 ..._buildNearbyHospitals(context),
@@ -58,13 +62,13 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  List<Widget> _buildNearbyHospitals(BuildContext context) {
+  List<Widget> _buildMyBloodRequest(BuildContext context) {
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Nearby Hospitals',
+            'My Blood Request',
             style: Theme.of(context)
                 .textTheme
                 .headline6
@@ -72,13 +76,13 @@ class _HomePageState extends State<HomePage> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, HospitalMainScreen.PATH);
+                Navigator.pushNamed(context, AllBloodRequest.PATH);
               },
               child: Text('View All'))
         ],
       ),
       SizedBox(height: 8),
-      HorizontalHospitalListView(),
+     MyBloodRequest(),
     ];
   }
 
@@ -103,6 +107,30 @@ class _HomePageState extends State<HomePage> {
       ),
       SizedBox(height: 8),
       TopBloodBanksListView(),
+    ];
+  }
+
+  List<Widget> _buildNearbyHospitals(BuildContext context) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Nearby Hospitals',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, HospitalMainScreen.PATH);
+              },
+              child: Text('View All'))
+        ],
+      ),
+      SizedBox(height: 8),
+      HorizontalHospitalListView(),
     ];
   }
 }
