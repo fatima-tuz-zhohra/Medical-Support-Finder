@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, AllBloodRequest.PATH);
+                Navigator.pushNamed(context, AllBloodRequestScreen.PATH);
               },
               child: Text('View All'))
         ],
