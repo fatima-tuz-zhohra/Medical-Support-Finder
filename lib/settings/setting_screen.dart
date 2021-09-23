@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:msf/authentication/login/loginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -10,7 +11,8 @@ class SettingScreen extends StatefulWidget {
   _SettingScreenState createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> with TickerProviderStateMixin {
+class _SettingScreenState extends State<SettingScreen>
+    with TickerProviderStateMixin {
   late AnimationController animationController;
 
   @override
@@ -30,15 +32,13 @@ class _SettingScreenState extends State<SettingScreen> with TickerProviderStateM
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-            title: Text('Setting')
-        ),
+        appBar: MsfAppBar(title: 'Settings'),
         body: mainBody(),
       ),
     );
   }
 
-  Widget mainBody(){
+  Widget mainBody() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

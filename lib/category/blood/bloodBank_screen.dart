@@ -1,12 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/bloodBank_item.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BloodBankScreen extends StatefulWidget {
   static const PATH = "/blood-banks";
+
   const BloodBankScreen({Key? key}) : super(key: key);
 
   @override
@@ -17,24 +18,24 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Blood Bank'),
+      appBar: MsfAppBar(title: 'Blood Bank'),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: StreamBuilder<List<BloodBankItem>>(
+            stream: BloodBankService().getBloodBank(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasData) {
+                final bloodBanks = snapshot.requireData;
+                return BloodBankListContent(bloodBanks: bloodBanks);
+              } else {
+                return Container();
+              }
+            }),
       ),
-      body: StreamBuilder<List<BloodBankItem>>(
-          stream: BloodBankService().getBloodBank(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
-              final bloodBanks = snapshot.requireData;
-              return BloodBankListContent(bloodBanks: bloodBanks);
-            } else {
-              return Container();
-            }
-          }),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/horizontal_list_view_small.dart';
 import 'package:msf/widgets/horizontal_list_view_big.dart';
 import 'package:msf/widgets/search_view.dart';
@@ -14,10 +15,7 @@ class _DoctorMainScreenState extends State<DoctorMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Doctor'),
-      ),
+      appBar: MsfAppBar(title: 'Doctor'),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(12.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/medicine_item.dart';
+import 'package:msf/widgets/app_bar.dart';
 
 class MedicineDetails extends StatelessWidget {
   MedicineDetails(this.medicineItem, {Key? key}) : super(key: key);
@@ -8,10 +9,7 @@ class MedicineDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(medicineItem.name ?? ''),
-      ),
+      appBar: MsfAppBar(title: medicineItem.name ?? ''),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,

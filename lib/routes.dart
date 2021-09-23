@@ -1,4 +1,5 @@
 import 'package:msf/category/blood/all_blood_request.dart';
+import 'package:msf/profile/edit_profile.dart';
 
 import 'authentication/login/loginPage.dart';
 import 'authentication/splash/splash.dart';
@@ -17,4 +18,5 @@ final appRoutes = {
   BloodDonorsScreen.PATH : (context) => BloodDonorsScreen(),
   AllBloodRequestScreen.PATH : (context) => AllBloodRequestScreen(),
   BloodRequestScreen.PATH : (context) => BloodRequestScreen(),
+  EditProfileScreen.PATH : (context) => EditProfileScreen(),
 };

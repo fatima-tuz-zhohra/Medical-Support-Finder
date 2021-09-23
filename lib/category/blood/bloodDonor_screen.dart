@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:msf/category/blood/blood_request_screen.dart';
 import 'package:msf/data/model/item/bloodDoners_item.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,22 +26,22 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
           Navigator.pushNamed(context, BloodRequestScreen.PATH);
         },
       ),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Blood Donors'),
+      appBar: MsfAppBar(title: 'Blood Donors'),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: StreamBuilder<List<BloodDonorsItem>>(
+            stream: BloodDonorService().getBloodDonor(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                final List<BloodDonorsItem> bloodDonors = snapshot.requireData;
+                return BloodDonorListContent(bloodDonors: bloodDonors);
+              } else {
+                return Container();
+              }
+            }),
       ),
-      body: StreamBuilder<List<BloodDonorsItem>>(
-          stream: BloodDonorService().getBloodDonor(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasData) {
-              final List<BloodDonorsItem> bloodDonors = snapshot.requireData;
-              return BloodDonorListContent(bloodDonors: bloodDonors);
-            } else {
-              return Container();
-            }
-          }),
     );
   }
 }

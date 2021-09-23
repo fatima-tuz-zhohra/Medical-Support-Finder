@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,22 +20,22 @@ class _HospitalMainScreenState extends State<HospitalMainScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Hospital'),
+      appBar: MsfAppBar(title: 'Hospital'),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: StreamBuilder<List<HospitalItem>>(
+            stream: HospitalService().getHospital(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                final hospitals = snapshot.requireData;
+                return HospitalListContent(hospitals: hospitals);
+              } else {
+                return Container();
+              }
+            }),
       ),
-      body: StreamBuilder<List<HospitalItem>>(
-          stream: HospitalService().getHospital(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasData) {
-              final hospitals = snapshot.requireData;
-              return HospitalListContent(hospitals: hospitals);
-            } else {
-              return Container();
-            }
-          }),
     );
   }
 }

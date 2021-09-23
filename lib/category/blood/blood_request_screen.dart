@@ -18,10 +18,9 @@ class BloodRequestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: _buildBody(context),
-        ),
+      appBar: MsfAppBar(),
+      body: SingleChildScrollView(
+        child: _buildBody(context),
       ),
     );
   }
@@ -32,10 +31,7 @@ class BloodRequestScreen extends StatelessWidget {
 
     return Column(
       children: [
-        MsfAppBar(),
-        SizedBox(
-          height: 16,
-        ),
+        SizedBox(height: 16),
         EditInputField(
           hintText: 'Blood Group',
           controller: bloodGroupController,
@@ -57,11 +53,7 @@ class BloodRequestScreen extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        RoundedButton(
-            text: 'Post Blood Request ',
-            press: () async {
-
-            }),
+        RoundedButton(text: 'Post Blood Request ', press: () async {}),
       ],
     );
   }

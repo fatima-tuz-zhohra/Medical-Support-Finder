@@ -23,17 +23,15 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) {
-                return EditProfile();
-              }));
+          Navigator.pushNamed(context, EditProfileScreen.PATH);
         },
         child: Icon(Icons.edit),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: StreamBuilder<Profile>(
-            stream: DatabaseService(uid: firebaseUser?.uid ?? '').getUserDataStream(),
+            stream: DatabaseService(uid: firebaseUser?.uid ?? '')
+                .getUserDataStream(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -188,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
           end: Alignment.bottomLeft,
           colors: [
             theme.colorScheme.primary,
-            theme.colorScheme.secondary,
+            Color(0xff80cbc4),
           ]),
     );
   }
