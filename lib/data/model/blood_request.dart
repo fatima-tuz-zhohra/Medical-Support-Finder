@@ -1,4 +1,5 @@
 class BloodRequest {
+  String docId = '';
   String uid;
   String name;
   String picture;
@@ -18,6 +19,7 @@ class BloodRequest {
 
   Map<String, dynamic> toMap() {
     return {
+      'docId': this.docId,
       'uid': this.uid,
       'name': this.name,
       'picture': this.picture,
@@ -35,6 +37,6 @@ class BloodRequest {
       phoneNo: map['phoneNo'] as String,
       bloodGroup: map['bloodGroup'] as String,
       description: map['description'] as String,
-    );
+    )..docId = map['docId'] as String;
   }
 }

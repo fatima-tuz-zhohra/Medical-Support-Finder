@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/blood_request.dart';
+import 'package:msf/services/blood_request_service.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/utils/utils.dart';
 import 'package:msf/widgets/app_bar.dart';
@@ -27,6 +28,7 @@ class BloodRequestScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverFillRemaining(
+              hasScrollBody: false,
               child: _buildBody(context),
             )
           ],
@@ -37,7 +39,8 @@ class BloodRequestScreen extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     final firebaseUser = FirebaseAuth.instance.currentUser!;
-    final databaseService = DatabaseService(uid: firebaseUser.uid);
+    final userDatabaseService = DatabaseService(uid: firebaseUser.uid);
+    final bloodRequestService = BloodRequestService();
 
     return Form(
       key: _formKey,
@@ -59,9 +62,7 @@ class BloodRequestScreen extends StatelessWidget {
                 return 'Please enter valid blood group';
             },
           ),
-          SizedBox(
-            height: 12,
-          ),
+          SizedBox(height: 12),
           EditInputField(
             hintText: 'Contact Number',
             controller: phoneNoController,
@@ -77,9 +78,7 @@ class BloodRequestScreen extends StatelessWidget {
                 return 'Please enter valid phone number';
             },
           ),
-          SizedBox(
-            height: 12,
-          ),
+          SizedBox(height: 12),
           EditInputField(
             hintText: 'Description',
             controller: descriptionController,
@@ -87,19 +86,28 @@ class BloodRequestScreen extends StatelessWidget {
             maxline: 5,
             validator: (value) {
               if (value == null || value.length < 50)
-                return 'Please enter request Details';
+                return 'Please enter minimum 50 letter';
               else
                 return null;
             },
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           RoundedButton(
               text: 'Post Blood Request ',
               press: () async {
                 if (_formKey.currentState?.validate() == true) {
-                  //form valid
+                  final user = await userDatabaseService.getUserData();
+                  final bloodRequest = BloodRequest(
+                    uid: firebaseUser.uid,
+                    name: user.name,
+                    picture: user.image ?? '',
+                    phoneNo: phoneNoController.text,
+                    bloodGroup: bloodGroupController.text,
+                    description: descriptionController.text,
+                  );
+                  await bloodRequestService.newRequest(bloodRequest);
+                  showSnackbar(context, 'Blood Request submitted');
+                  Navigator.pop(context);
                 } else {
                   showSnackbar(context, 'Invalid inputs');
                 }
