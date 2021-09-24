@@ -10,6 +10,18 @@ class Chatting extends StatefulWidget {
 class _ChattingState extends State<Chatting> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Chatting'),
+      ),
+      body:
+      SafeArea(
+        child: SingleChildScrollView(
+            child: Center(
+              child:
+                Text("Chatting Screen"),)
+            )),
+    );
   }
 }

@@ -34,6 +34,9 @@ dependencies:
   google_sign_in: ^5.0.7
   flutter_signin_button: ^2.0.0
   geolocator: ^7.6.2
+  google_fonts: ^2.1.0
+  flutter_rating_bar: ^4.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.1"
@@ -76,6 +79,12 @@ flutter:
    - assets/images/profile.jpg
    - assets/images/logo.jpeg
    - assets/icons/blood_icon_profile.png
+   - assets/icons/medicine_icon3.png
+   - assets/images/generic_medicine_details_image.PNG
+   - assets/icons/heart.png
+   - assets/icons/heart_border.png
+   - assets/icons/heart_half.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

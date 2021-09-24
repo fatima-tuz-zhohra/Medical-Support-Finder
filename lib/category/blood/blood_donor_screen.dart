@@ -1,11 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:msf/category/blood/new_blood_request_screen.dart';
 import 'package:msf/data/model/item/bloodDoners_item.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BloodDonorsScreen extends StatefulWidget {
+  static const PATH = "/blood-donors";
+
   const BloodDonorsScreen({Key? key}) : super(key: key);
 
   @override
@@ -15,36 +21,22 @@ class BloodDonorsScreen extends StatefulWidget {
 class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Blood Donors'),
+      appBar: MsfAppBar(title: 'Blood Donors'),
+      body: MsfBasePageLayout(
+        child: StreamBuilder<List<BloodDonorsItem>>(
+            stream: BloodDonorService().getBloodDonor(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                final List<BloodDonorsItem> bloodDonors = snapshot.requireData;
+                return BloodDonorListContent(bloodDonors: bloodDonors);
+              } else {
+                return Container();
+              }
+            }),
       ),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
-          stream: BloodDonorService().getBloodDonor(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                height: 44,
-                width: 44,
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              final List<BloodDonorsItem> bloodDonors = [];
-
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final bloodDonor = BloodDonorsItem(dbItem['name'],
-                    dbItem['address'], dbItem['bloodGroup'], dbItem['phoneNo']);
-                bloodDonors.add(bloodDonor);
-              });
-              return BloodDonorListContent(bloodDonors: bloodDonors);
-            } else {
-              return Container();
-            }
-          }),
     );
   }
 }
@@ -76,8 +68,10 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
 
           List<BloodDonorsItem> filtered = [];
           widget.bloodDonors.forEach((element) {
-            if (element.name != null &&
-                element.name!.toLowerCase().startsWith(text.toLowerCase())) {
+            if (element.bloodGroup != null &&
+                element.bloodGroup!
+                    .toLowerCase()
+                    .startsWith(text.toLowerCase())) {
               filtered.add(element);
             }
           });
@@ -93,7 +87,7 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
           child: ListView.builder(
               itemCount: bloodDonors.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
+                return MsfListItem(
                   child: ListTile(
                     title: Text(
                         '${bloodDonors[index].name} (${bloodDonors[index].bloodGroup})'),

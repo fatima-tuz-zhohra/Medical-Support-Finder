@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:msf/authentication/bloc/user_bloc.dart';
 import 'package:msf/authentication/login/loginPage.dart';
-import 'package:msf/home/home_navigation/homepage.dart';
+import 'package:msf/home/homepage.dart';
 
 class SplashPage extends StatelessWidget {
   static const PATH = "/splash";

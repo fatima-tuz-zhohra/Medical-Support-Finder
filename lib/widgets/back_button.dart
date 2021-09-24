@@ -16,11 +16,11 @@ class MsfBackButton extends StatelessWidget {
                 bottomRight: Radius.circular(22))),
         margin: EdgeInsets.all(0),
         elevation: 0,
-        color: Colors.pinkAccent,
+        color: Colors.orange.shade500,
         child: SizedBox(
             height: 44,
             width: 58,
-            child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+            child: Icon(Icons.arrow_back_ios)),
       ),
     );
   }

@@ -2,10 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HospitalMainScreen extends StatefulWidget {
+  static const PATH = "/hospitals";
+
   const HospitalMainScreen({Key? key}) : super(key: key);
 
   @override
@@ -15,24 +20,22 @@ class HospitalMainScreen extends StatefulWidget {
 class _HospitalMainScreenState extends State<HospitalMainScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Hospital'),
+      appBar: MsfAppBar(title: 'Hospital'),
+      body: MsfBasePageLayout(
+        child: StreamBuilder<List<HospitalItem>>(
+            stream: HospitalService().getHospital(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                final hospitals = snapshot.requireData;
+                return HospitalListContent(hospitals: hospitals);
+              } else {
+                return Container();
+              }
+            }),
       ),
-      body: StreamBuilder<List<HospitalItem>>(
-          stream: HospitalService().getHospital(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasData) {
-              final hospitals = snapshot.requireData;
-              return HospitalListContent(hospitals: hospitals);
-            } else {
-              return Container();
-            }
-          }),
     );
   }
 }
@@ -81,18 +84,37 @@ class _HospitalListContentState extends State<HospitalListContent> {
           child: ListView.builder(
             itemCount: hospitals.length,
             itemBuilder: (BuildContext context, int index) {
-              return Card(
+              return MsfListItem(
                 child: ListTile(
                   title: Text('${hospitals[index].name}'),
                   subtitle: Text('${hospitals[index].address}'),
-                  trailing: IconButton(
-                    iconSize: 18,
-                    icon: const Icon(Icons.location_on),
-                    color: theme.colorScheme.secondary,
-                    onPressed: () {
-                      navigateTo(hospitals[index].latitude,
-                          hospitals[index].longitude);
-                    },
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      InkWell(
+                        child: Icon(
+                          Icons.location_on,
+                          color: theme.colorScheme.secondary,
+                          size: 18,
+                        ),
+                        onTap: () {
+                          navigateTo(hospitals[index].latitude,
+                              hospitals[index].longitude);
+                        },
+                      ),
+                      SizedBox(height: 4),
+                      InkWell(
+                        child: Icon(
+                          Icons.call,
+                          color: theme.colorScheme.secondary,
+                          size: 18,
+                        ),
+                        onTap: () {
+                          launch(('tel://${hospitals[index].phoneNo}'));
+                        },
+                      ),
+                    ],
                   ),
                 ),
               );

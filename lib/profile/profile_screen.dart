@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/profile.dart';
-import 'package:msf/home/home_navigation/settings/profile/edit_profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/back_button.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/single_input_dialog.dart';
+
+import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,29 +23,34 @@ class _ProfilePageState extends State<ProfilePage> {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.edit),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) {
-                return EditProfile();
-              }));
+          Navigator.pushNamed(context, EditProfileScreen.PATH);
         },
-        child: Icon(Icons.edit),
+        label: Text('Edit Profile'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: StreamBuilder<Profile>(
-            stream: DatabaseService(uid: firebaseUser?.uid ?? '').getUserDataStream(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                final profile = snapshot.requireData;
-                return _createProfileView(context, profile);
-              } else {
-                return Container();
-              }
-            },
+        child: MsfBasePageLayout(
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                child: StreamBuilder<Profile>(
+                  stream: DatabaseService(uid: firebaseUser?.uid ?? '')
+                      .getUserDataStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      final profile = snapshot.requireData;
+                      return _createProfileView(context, profile);
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -66,9 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Column(
           children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
+            MsfListItem(
               child: ListTile(
                 leading: Icon(Icons.account_circle),
                 title: Text('Address'),
@@ -93,8 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _createBloodDonorCard(BuildContext context, Profile profile) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return MsfListItem(
       child: ListTile(
         leading: Icon(Icons.call),
         trailing: Switch(
@@ -187,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
           end: Alignment.bottomLeft,
           colors: [
             theme.colorScheme.primary,
-            theme.colorScheme.secondary,
+            Color(0xff80cbc4),
           ]),
     );
   }

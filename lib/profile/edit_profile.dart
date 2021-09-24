@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
+import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/edit_input_field.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
-class EditProfile extends StatelessWidget {
-  EditProfile({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  static const PATH = "/edit-profile";
+
+  EditProfileScreen({Key? key}) : super(key: key);
 
   final nameController = TextEditingController();
   final addressController = TextEditingController();
@@ -19,22 +23,29 @@ class EditProfile extends StatelessWidget {
     final databaseService = DatabaseService(uid: firebaseUser.uid);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: FutureBuilder<Profile>(
-            future: databaseService.getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                final profile = snapshot.requireData;
-                return _buildBody(context, profile, databaseService);
-              } else {
-                return Container();
-              }
-            },
-          ),
+      appBar: MsfAppBar(title: 'Edit Profile'),
+      body: MsfBasePageLayout(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: FutureBuilder<Profile>(
+                  future: databaseService.getUserData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      final profile = snapshot.requireData;
+                      return _buildBody(context, profile, databaseService);
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -44,21 +55,10 @@ class EditProfile extends StatelessWidget {
       BuildContext context, Profile profile, DatabaseService databaseService) {
     nameController.text = profile.name;
     addressController.text = profile.address ?? '';
-    phoneNoController.text = profile.phoneNo ?? '';
+    phoneNoController.text = profile.phoneNo;
 
     return Column(
       children: [
-        SizedBox(height: 12,),
-        Center(
-          child: Text("Edit Profile",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(fontWeight: FontWeight.bold)),
-        ),
-        SizedBox(
-          height: 16,
-        ),
         EditInputField(
           hintText: 'name',
           controller: nameController,
