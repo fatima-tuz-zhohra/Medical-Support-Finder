@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:msf/authentication/login/loginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SettingScreenState extends State<SettingScreen>
     return Container(
       child: Scaffold(
         appBar: MsfAppBar(title: 'Settings'),
-        body: mainBody(),
+        body: MsfBasePageLayout(child: mainBody()),
       ),
     );
   }

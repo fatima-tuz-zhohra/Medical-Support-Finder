@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/bloodBank_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,8 +21,7 @@ class _BloodBankScreenState extends State<BloodBankScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MsfAppBar(title: 'Blood Bank'),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
+      body: MsfBasePageLayout(
         child: StreamBuilder<List<BloodBankItem>>(
             stream: BloodBankService().getBloodBank(),
             builder: (context, snapshot) {
@@ -85,7 +86,7 @@ class _BloodBankListContentState extends State<BloodBankListContent> {
           child: ListView.builder(
               itemCount: bloodBanks.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
+                return MsfListItem(
                   child: ListTile(
                     title: Text('${bloodBanks[index].name}'),
                     subtitle: Text('${bloodBanks[index].address}'),

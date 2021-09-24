@@ -1,9 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:msf/data/model/item/bloodBank_item.dart';
-import 'package:msf/data/model/item/hospital_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,6 +42,7 @@ class TopBloodBanksListView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         Color color = Colors.white;
         final textTheme = Theme.of(context).primaryTextTheme;
+        double rating = 5.0 - (index * .20);
 
         if (index % 3 == 0) {
           color = Colors.indigo.shade500;
@@ -78,7 +78,32 @@ class TopBloodBanksListView extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.subtitle1?.copyWith(fontSize: 14),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      RatingBar(
+                          ignoreGestures: true,
+                          itemSize: 20,
+                          initialRating: rating,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                          ratingWidget: RatingWidget(
+                            full: Icon(Icons.star, color: Colors.amber),
+                            half: Icon(Icons.star_half, color: Colors.amber),
+                            empty: Icon(Icons.star_border, color: Colors.amber),
+                          ),
+                          onRatingUpdate: (rating) {
+                            print('Rating: $rating');
+                          }),
+                      SizedBox(width: 4),
+                      Text(
+                        '$rating',
+                        style: textTheme.bodyText2
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
                 ],
               ),
               trailing: Column(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/medicine_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 
 import 'medicine_details.dart';
@@ -19,34 +21,36 @@ class _MedicineMainScreenState extends State<MedicineMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MsfAppBar(title: 'Medicine'),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
-        stream: MedicineService().getMedicines(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              height: 44,
-              width: 44,
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasData) {
-            final data = snapshot.requireData;
-            final List<MedicineItem> medicines = [];
+      body: MsfBasePageLayout(
+        child: StreamBuilder<QuerySnapshot<Object?>>(
+          stream: MedicineService().getMedicines(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Container(
+                height: 44,
+                width: 44,
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasData) {
+              final data = snapshot.requireData;
+              final List<MedicineItem> medicines = [];
 
-            data.docs.forEach((element) {
-              final dbItem = element.data()! as Map<String, dynamic>;
-              final medicine = MedicineItem(
-                  dbItem['name'],
-                  dbItem['generic'],
-                  dbItem['companyName'],
-                  double.parse("${dbItem['price']}"),
-                  dbItem['description']);
-              medicines.add(medicine);
-            });
-            return MedicineListContent(medicines: medicines);
-          } else {
-            return Container();
-          }
-        },
+              data.docs.forEach((element) {
+                final dbItem = element.data()! as Map<String, dynamic>;
+                final medicine = MedicineItem(
+                    dbItem['name'],
+                    dbItem['generic'],
+                    dbItem['companyName'],
+                    double.parse("${dbItem['price']}"),
+                    dbItem['description']);
+                medicines.add(medicine);
+              });
+              return MedicineListContent(medicines: medicines);
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }
@@ -71,58 +75,52 @@ class _MedicineListContentState extends State<MedicineListContent> {
     if (searchKey.isEmpty) {
       medicines = widget.medicines;
     }
-    return Container(
-      color: Colors.grey.shade200,
-      child: Column(
-        children: [
-          SearchView(onTextChange: (text) {
-            print(text);
-            print('Current list size ${medicines.length}');
+    return Column(
+      children: [
+        SearchView(onTextChange: (text) {
+          print(text);
+          print('Current list size ${medicines.length}');
 
-            List<MedicineItem> filtered = [];
-            widget.medicines.forEach((element) {
-              if (element.name != null &&
-                  element.name!.toLowerCase().startsWith(text.toLowerCase())) {
-                filtered.add(element);
-              }
-            });
+          List<MedicineItem> filtered = [];
+          widget.medicines.forEach((element) {
+            if (element.name != null &&
+                element.name!.toLowerCase().startsWith(text.toLowerCase())) {
+              filtered.add(element);
+            }
+          });
 
-            print('Matched: ${filtered.length} items');
+          print('Matched: ${filtered.length} items');
 
-            setState(() {
-              searchKey = text;
-              medicines = filtered;
-            });
-          }),
-          Expanded(
-            child: ListView.builder(
-              itemCount: medicines.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  elevation: 0,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset('assets/icons/medicine_icon3.png'),
-                    ),
-                    title: Text('${medicines[index].name}'),
-                    subtitle: Text('${medicines[index].generic}'),
-                    trailing: Text(' ৳  ${medicines[index].price}'),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return MedicineDetails(medicines[index]);
-                      }));
-                    },
+          setState(() {
+            searchKey = text;
+            medicines = filtered;
+          });
+        }),
+        Expanded(
+          child: ListView.builder(
+            itemCount: medicines.length,
+            itemBuilder: (BuildContext context, int index) {
+              return MsfListItem(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Image.asset('assets/icons/medicine_icon3.png'),
                   ),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+                  title: Text('${medicines[index].name}'),
+                  subtitle: Text('${medicines[index].generic}'),
+                  trailing: Text(' ৳  ${medicines[index].price}'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return MedicineDetails(medicines[index]);
+                    }));
+                  },
+                ),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 }

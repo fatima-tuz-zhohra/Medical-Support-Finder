@@ -13,5 +13,6 @@ class HospitalItem {
     this.latitude,
     this.longitude,
     this.type,
+    this.phoneNo,
   );
 }

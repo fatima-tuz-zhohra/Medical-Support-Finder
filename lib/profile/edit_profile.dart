@@ -5,6 +5,7 @@ import 'package:msf/data/model/profile.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/edit_input_field.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -23,22 +24,28 @@ class EditProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: MsfAppBar(title: 'Edit Profile'),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: FutureBuilder<Profile>(
-            future: databaseService.getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                final profile = snapshot.requireData;
-                return _buildBody(context, profile, databaseService);
-              } else {
-                return Container();
-              }
-            },
-          ),
+      body: MsfBasePageLayout(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: FutureBuilder<Profile>(
+                  future: databaseService.getUserData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      final profile = snapshot.requireData;
+                      return _buildBody(context, profile, databaseService);
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

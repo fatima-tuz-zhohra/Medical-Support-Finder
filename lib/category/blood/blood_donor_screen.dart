@@ -4,6 +4,8 @@ import 'package:msf/category/blood/blood_request_screen.dart';
 import 'package:msf/data/model/item/bloodDoners_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,8 +29,7 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
         },
       ),
       appBar: MsfAppBar(title: 'Blood Donors'),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
+      body: MsfBasePageLayout(
         child: StreamBuilder<List<BloodDonorsItem>>(
             stream: BloodDonorService().getBloodDonor(),
             builder: (context, snapshot) {
@@ -92,7 +93,7 @@ class _BloodDonorListContentState extends State<BloodDonorListContent> {
           child: ListView.builder(
               itemCount: bloodDonors.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
+                return MsfListItem(
                   child: ListTile(
                     title: Text(
                         '${bloodDonors[index].name} (${bloodDonors[index].bloodGroup})'),

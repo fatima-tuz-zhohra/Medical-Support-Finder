@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/category/blood/all_blood_request.dart';
-import 'package:msf/category/blood/bloodBank_screen.dart';
+import 'package:msf/category/blood/blood_bank_screen.dart';
 import 'package:msf/category/blood/my_blood_request.dart';
 import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
 import 'package:msf/home/nearby_hospitals_view.dart';
 import 'package:msf/home/top_blood_banks_view.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
 
 import 'home_category_view.dart';
 
@@ -24,21 +25,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._buildAllCategories(context),
-                SizedBox(height: 24),
-                ..._buildMyBloodRequest(context),
-                SizedBox(height: 24),
-                ..._buildTopBloodBanks(context),
-                SizedBox(height: 24),
-                ..._buildNearbyHospitals(context),
-              ],
+        child: MsfBasePageLayout(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ..._buildAllCategories(context),
+                  SizedBox(height: 24),
+                  ..._buildMyBloodRequest(context),
+                  SizedBox(height: 24),
+                  ..._buildTopBloodBanks(context),
+                  SizedBox(height: 24),
+                  ..._buildNearbyHospitals(context),
+                ],
+              ),
             ),
           ),
         ),

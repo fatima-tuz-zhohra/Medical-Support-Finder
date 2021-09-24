@@ -4,6 +4,7 @@ import 'package:msf/data/model/blood_request.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
 import 'package:msf/widgets/edit_input_field.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
 import 'package:msf/widgets/rounded_button.dart';
 
 class BloodRequestScreen extends StatelessWidget {
@@ -19,8 +20,14 @@ class BloodRequestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MsfAppBar(),
-      body: SingleChildScrollView(
-        child: _buildBody(context),
+      body: MsfBasePageLayout(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: _buildBody(context),
+            )
+          ],
+        ),
       ),
     );
   }
