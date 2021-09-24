@@ -22,12 +22,6 @@ class _BloodDonorsScreenState extends State<BloodDonorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text('Request for Blood'),
-        onPressed: () {
-          Navigator.pushNamed(context, BloodRequestScreen.PATH);
-        },
-      ),
       appBar: MsfAppBar(title: 'Blood Donors'),
       body: MsfBasePageLayout(
         child: StreamBuilder<List<BloodDonorsItem>>(

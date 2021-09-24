@@ -28,4 +28,18 @@ class BloodRequestService {
       return bloodRequests;
     });
   }
+
+  Stream<List<BloodRequest>> getAllRequests(String uid) {
+    final stream = bloodRequestCollection.orderBy('posted_on').snapshots();
+
+    return stream.map((updatedCollection) {
+      final List<BloodRequest> bloodRequests = [];
+      updatedCollection.docs.forEach((element) {
+        final data = element.data() as Map<String, dynamic>;
+        final request = BloodRequest.fromMap(data);
+        bloodRequests.add(request);
+      });
+      return bloodRequests;
+    });
+  }
 }
