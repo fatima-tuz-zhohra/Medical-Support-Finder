@@ -13,7 +13,7 @@ class _ChattingState extends State<Chatting> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Chatting'),
+        title: Text('Chat'),
       ),
       body:
       SafeArea(

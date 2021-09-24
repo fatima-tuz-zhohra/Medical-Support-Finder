@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:msf/data/model/item/oxygen_item.dart';
 import 'package:msf/services/database.dart';
 import 'package:msf/widgets/app_bar.dart';
+import 'package:msf/widgets/msf_base_page_layout.dart';
+import 'package:msf/widgets/msf_list_item.dart';
 import 'package:msf/widgets/search_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OxygenSupplierScreen extends StatefulWidget {
+  static const PATH = "/oxygen-supplier";
   const OxygenSupplierScreen({Key? key}) : super(key: key);
 
   @override
@@ -18,32 +21,38 @@ class _OxygenSupplierScreenState extends State<OxygenSupplierScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MsfAppBar(title: 'Oxygen Suppliers'),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: StreamBuilder<QuerySnapshot<Object?>>(
-          stream: OxygenService().getOxygen(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                height: 44,
-                width: 44,
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
-              final data = snapshot.requireData;
-              final List<OxygenItem> oxygens = [];
+      body: MsfBasePageLayout(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: StreamBuilder<QuerySnapshot<Object?>>(
+            stream: OxygenService().getOxygen(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(
+                  height: 44,
+                  width: 44,
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasData) {
+                final data = snapshot.requireData;
+                final List<OxygenItem> oxygens = [];
 
-              data.docs.forEach((element) {
-                final dbItem = element.data()! as Map<String, dynamic>;
-                final oxygen = OxygenItem(dbItem['name'], dbItem['address'],
-                    dbItem['PhpneNo'], dbItem['latitude'], dbItem['longitude']);
-                oxygens.add(oxygen);
-              });
-              return OxygenListContent(oxygens: oxygens);
-            } else {
-              return Container();
-            }
-          },
+                data.docs.forEach((element) {
+                  final dbItem = element.data()! as Map<String, dynamic>;
+                  final oxygen = OxygenItem(
+                      dbItem['name'],
+                      dbItem['address'],
+                      dbItem['PhoneNo'],
+                      dbItem['latitude'],
+                      dbItem['longitude']);
+                  oxygens.add(oxygen);
+                });
+                return OxygenListContent(oxygens: oxygens);
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
@@ -93,7 +102,7 @@ class _OxygenListContentState extends State<OxygenListContent> {
           child: ListView.builder(
             itemCount: oxygens.length,
             itemBuilder: (BuildContext context, int index) {
-              return Card(
+              return MsfListItem(
                 child: ListTile(
                   title: Text('${oxygens[index].name}'),
                   subtitle: Text('${oxygens[index].address}'),

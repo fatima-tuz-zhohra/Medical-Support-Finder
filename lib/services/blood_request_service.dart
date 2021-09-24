@@ -30,7 +30,7 @@ class BloodRequestService {
   }
 
   Stream<List<BloodRequest>> getAllRequests(String uid) {
-    final stream = bloodRequestCollection.orderBy('posted_on').snapshots();
+    final stream = bloodRequestCollection.orderBy('posted_on', descending: true).snapshots();
 
     return stream.map((updatedCollection) {
       final List<BloodRequest> bloodRequests = [];
