@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:msf/category/blood/all_blood_request.dart';
 import 'package:msf/category/blood/blood_bank_screen.dart';
-import 'package:msf/category/blood/my_blood_request.dart';
+import 'package:msf/home/my_blood_request.dart';
 import 'package:msf/category/hospital/hospital_main_screen.dart';
 import 'package:msf/home/home_navigation/homepage_navigator.dart';
 import 'package:msf/home/nearby_hospitals_view.dart';
@@ -35,9 +35,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ..._buildAllCategories(context),
                   SizedBox(height: 24),
-                  ..._buildMyBloodRequest(context),
-                  SizedBox(height: 24),
                   ..._buildTopBloodBanks(context),
+                  SizedBox(height: 24),
+                  ..._buildMyBloodRequest(context),
                   SizedBox(height: 24),
                   ..._buildNearbyHospitals(context),
                 ],

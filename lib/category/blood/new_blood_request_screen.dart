@@ -100,7 +100,7 @@ class BloodRequestScreen extends StatelessWidget {
                   final bloodRequest = BloodRequest(
                     uid: firebaseUser.uid,
                     name: user.name,
-                    picture: user.image ?? '',
+                    picture: user.image,
                     phoneNo: phoneNoController.text,
                     bloodGroup: bloodGroupController.text,
                     description: descriptionController.text,

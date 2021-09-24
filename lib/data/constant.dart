@@ -7,3 +7,8 @@ class AppConstants {
 class RolesConstants{
   static const user = "Regular User";
 }
+
+class BloodConstants{
+  static const open = 'Open';
+  static const closed = 'Closed';
+}
