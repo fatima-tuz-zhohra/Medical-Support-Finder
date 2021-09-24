@@ -83,8 +83,7 @@ class _SettingScreenState extends State<SettingScreen>
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return LogInPage();
-    }));
+    Navigator.pushNamedAndRemoveUntil(
+        context, LogInPage.PATH, (route) => false);
   }
 }

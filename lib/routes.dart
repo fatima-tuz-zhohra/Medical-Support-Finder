@@ -7,6 +7,7 @@ import 'category/blood/blood_bank_screen.dart';
 import 'category/blood/blood_donor_screen.dart';
 import 'category/blood/new_blood_request_screen.dart';
 import 'category/hospital/hospital_main_screen.dart';
+import 'category/oxygen/oxygen_main_screen.dart';
 import 'home/homepage.dart';
 
 final appRoutes = {
@@ -19,4 +20,5 @@ final appRoutes = {
   AllBloodRequestScreen.PATH : (context) => AllBloodRequestScreen(),
   BloodRequestScreen.PATH : (context) => BloodRequestScreen(),
   EditProfileScreen.PATH : (context) => EditProfileScreen(),
+  OxygenSupplierScreen.PATH : (context) => OxygenSupplierScreen(),
 };
