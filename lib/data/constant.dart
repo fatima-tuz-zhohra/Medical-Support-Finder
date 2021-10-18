@@ -10,5 +10,6 @@ class RolesConstants{
 
 class BloodConstants{
   static const open = 'Open';
+  static const approved = 'Approved';
   static const closed = 'Closed';
 }

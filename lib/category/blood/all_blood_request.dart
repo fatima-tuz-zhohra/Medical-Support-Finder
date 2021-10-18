@@ -38,7 +38,7 @@ class AllBloodRequestScreen extends StatelessWidget {
               final bloodRequests = snapshot.requireData;
               return _buildList(context, bloodRequests);
             } else {
-              return Container();
+              return Container(child: Center(child: Text('No open blood request found')));
             }
           },
         ),
@@ -74,7 +74,9 @@ class AllBloodRequestScreen extends StatelessWidget {
                 Spacer(),
                 if (firebaseUser.uid == request.uid)
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     icon: Icon(Icons.more_horiz),
                   ),
               ],

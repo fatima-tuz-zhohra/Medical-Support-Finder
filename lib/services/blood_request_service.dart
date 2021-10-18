@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:msf/data/constant.dart';
 import 'package:msf/data/model/blood_request.dart';
 
 class BloodRequestService {
@@ -30,7 +31,10 @@ class BloodRequestService {
   }
 
   Stream<List<BloodRequest>> getAllRequests(String uid) {
-    final stream = bloodRequestCollection.orderBy('posted_on', descending: true).snapshots();
+    final stream = bloodRequestCollection
+        .where('status', isEqualTo: BloodConstants.approved)
+        .orderBy('posted_on', descending: true)
+        .snapshots();
 
     return stream.map((updatedCollection) {
       final List<BloodRequest> bloodRequests = [];
