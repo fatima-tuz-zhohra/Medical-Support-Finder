@@ -1,5 +1,5 @@
 name: msf
-description: A new Flutter project.
+description: Medical Support Finder Application.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -24,10 +24,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  url_launcher: ^6.0.9
+  firebase_core: "^1.4.0"
+  firebase_auth: "^3.1.0"
   cupertino_icons: ^1.0.2
+  cloud_firestore: ^2.5.1
+  bloc: ^7.1.0
+  flutter_bloc: ^7.2.0
+  google_sign_in: ^5.0.7
+  flutter_signin_button: ^2.0.0
+  geolocator: ^7.6.2
+  google_fonts: ^2.1.0
+  flutter_rating_bar: ^4.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.1"
@@ -69,6 +78,13 @@ flutter:
    - assets/icons/medicine_icon2.png
    - assets/images/profile.jpg
    - assets/images/logo.jpeg
+   - assets/icons/blood_icon_profile.png
+   - assets/icons/medicine_icon3.png
+   - assets/images/generic_medicine_details_image.PNG
+   - assets/icons/heart.png
+   - assets/icons/heart_border.png
+   - assets/icons/heart_half.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
