@@ -41,7 +41,7 @@ class MyBloodRequest extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Container(
             padding: EdgeInsets.all(8.0),
-            width: 320,
+            width: 332,
             child: ListTile(
               leading: CircleAvatar(
                 radius: 30.0,
@@ -57,6 +57,7 @@ class MyBloodRequest extends StatelessWidget {
                   SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Chip(label: Text(request.phoneNo)),
                       SizedBox(width: 4),
